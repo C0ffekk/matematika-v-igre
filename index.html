@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Интерактивные игры для математического развития детей старшего дошкольного возраста. Сайт воспитателя Хоменковой Юлии Сергеевны, ГУО «Детский сад №84 г. Витебска»" />
+  <title>Математика в игре 🎲</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== ШАПКА ===== -->
+  <header class="hero">
+    <!-- Декоративные орбы -->
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+
+    <!-- Плавающие символы -->
+    <div class="hero-bg-shapes">
+      <span class="shape s1">➕</span>
+      <span class="shape s2">7</span>
+      <span class="shape s3">★</span>
+      <span class="shape s4">△</span>
+      <span class="shape s5">◯</span>
+      <span class="shape s6">◇</span>
+      <span class="shape s7">×</span>
+      <span class="shape s8">3</span>
+      <span class="shape s9">□</span>
+      <span class="shape s10">5</span>
+    </div>
+
+    <div class="hero-content">
+
+      <!-- Заголовок -->
+      <h1 class="hero-title">
+        <span class="title-math">Математика</span>
+        <span class="title-line2">
+          <span class="title-in">в</span>
+          <span class="title-game">игре</span>
+          <span class="title-dice">🎲</span>
+        </span>
+      </h1>
+
+      <!-- Подзаголовок -->
+      <p class="hero-subtitle">
+        Игры для математического развития детей<br />
+        <strong>старшего дошкольного возраста</strong>
+      </p>
+
+      <!-- Автор -->
+      <div class="hero-author-line">
+        <span class="hero-author-avatar">👩‍🏫</span>
+        <span class="hero-author-name">Хоменкова Юлия Сергеевна</span>
+        <span class="hero-author-sep">·</span>
+        <span class="hero-author-place">ГУО «Детский сад № 84 г. Витебска»</span>
+      </div>
+
+      <!-- Теги разделов -->
+      <div class="hero-tags">
+        <span class="tag">🔢 Количество и счёт</span>
+        <span class="tag">📏 Величина</span>
+        <span class="tag">⏰ Время</span>
+        <span class="tag">🧭 Пространство</span>
+        <span class="tag">🧩 Логика</span>
+        <span class="tag">📐 Фигуры</span>
+      </div>
+
+    </div>
+
+
+    <!-- Плавный переход волны -->
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,35 C420,85 1020,85 1440,35 L1440,90 L0,90 Z" fill="#F7F9FC"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ===== НАВИГАЦИЯ ===== -->
+  <nav class="nav-bar" id="nav-bar">
+    <div class="nav-bar-container">
+      <div class="nav-inner">
+        <button class="nav-btn active" data-target="kolichestvo">🔢 Счёт</button>
+        <button class="nav-btn" data-target="velichina">📏 Величина</button>
+        <button class="nav-btn" data-target="vremya">⏰ Время</button>
+        <button class="nav-btn" data-target="prostranstvo">🧭 Пространство</button>
+        <button class="nav-btn" data-target="logika">🧩 Логика</button>
+        <button class="nav-btn" data-target="figury">📐 Фигуры</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+  <main class="main-content" id="main-content">
+
+    <!-- 1. Количество и счёт -->
+    <section class="category-section" id="kolichestvo" data-color="blue">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">🔢</div>
+          <div>
+            <h2 class="section-title">Количество и счёт</h2>
+            <p class="section-desc">Считаем, сравниваем, решаем — весело и без страха!</p>
+          </div>
+        </div>
+        <div class="games-grid">
+          <div class="game-card" data-iframe="https://learningapps.org/watch?v=pe9276i2c26">
+            <div class="game-card-top blue">
+              <span class="game-number">Игра 1</span>
+              <span class="game-emoji">🎯</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Весёлый счёт</h3>
+              <p class="game-desc">Учимся считать предметы и соотносить количество с цифрой</p>
+              <div class="game-skills">
+                <span class="skill-tag">Счёт до 10</span>
+                <span class="skill-tag">Цифры</span>
+              </div>
+            </div>
+            <button class="play-btn blue-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top blue">
+              <span class="game-number">Игра 2</span>
+              <span class="game-emoji">🔢</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Больше, меньше, равно</h3>
+              <p class="game-desc">Сравниваем числа и группы предметов, расставляем знаки</p>
+              <div class="game-skills">
+                <span class="skill-tag">Сравнение</span>
+                <span class="skill-tag">Знаки &lt; &gt; =</span>
+              </div>
+            </div>
+            <button class="play-btn blue-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top blue">
+              <span class="game-number">Игра 3</span>
+              <span class="game-emoji">➕</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Считалочка</h3>
+              <p class="game-desc">Порядковый счёт, состав числа и первые примеры на сложение</p>
+              <div class="game-skills">
+                <span class="skill-tag">Порядковый счёт</span>
+                <span class="skill-tag">Состав числа</span>
+              </div>
+            </div>
+            <button class="play-btn blue-btn">▶ Играть</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Величина -->
+    <section class="category-section alt-bg" id="velichina" data-color="green">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">📏</div>
+          <div>
+            <h2 class="section-title">Величина</h2>
+            <p class="section-desc">Длинный или короткий? Тяжёлый или лёгкий? Разберёмся вместе!</p>
+          </div>
+        </div>
+        <div class="games-grid">
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top green">
+              <span class="game-number">Игра 1</span>
+              <span class="game-emoji">📏</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Длинный — короткий</h3>
+              <p class="game-desc">Сравниваем длину предметов, выстраиваем в ряд по порядку</p>
+              <div class="game-skills">
+                <span class="skill-tag">Длина</span>
+                <span class="skill-tag">Сериация</span>
+              </div>
+            </div>
+            <button class="play-btn green-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top green">
+              <span class="game-number">Игра 2</span>
+              <span class="game-emoji">⚖️</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Тяжелее или легче?</h3>
+              <p class="game-desc">Учимся сравнивать массу предметов с помощью весов</p>
+              <div class="game-skills">
+                <span class="skill-tag">Масса</span>
+                <span class="skill-tag">Весы</span>
+              </div>
+            </div>
+            <button class="play-btn green-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top green">
+              <span class="game-number">Игра 3</span>
+              <span class="game-emoji">🏠</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Высокий — низкий</h3>
+              <p class="game-desc">Сравниваем высоту и ширину, раскладываем по размеру</p>
+              <div class="game-skills">
+                <span class="skill-tag">Высота</span>
+                <span class="skill-tag">Ширина</span>
+              </div>
+            </div>
+            <button class="play-btn green-btn">▶ Играть</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Время -->
+    <section class="category-section" id="vremya" data-color="purple">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">⏰</div>
+          <div>
+            <h2 class="section-title">Время</h2>
+            <p class="section-desc">Утро, день, вечер, ночь — учимся ориентироваться во времени!</p>
+          </div>
+        </div>
+        <div class="games-grid">
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top purple">
+              <span class="game-number">Игра 1</span>
+              <span class="game-emoji">🌅</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Части суток</h3>
+              <p class="game-desc">Определяем время суток по картинкам и признакам природы</p>
+              <div class="game-skills">
+                <span class="skill-tag">Сутки</span>
+                <span class="skill-tag">Режим дня</span>
+              </div>
+            </div>
+            <button class="play-btn purple-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top purple">
+              <span class="game-number">Игра 2</span>
+              <span class="game-emoji">📅</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Дни недели</h3>
+              <p class="game-desc">Запоминаем дни недели, их порядок и последовательность</p>
+              <div class="game-skills">
+                <span class="skill-tag">Дни недели</span>
+                <span class="skill-tag">Последовательность</span>
+              </div>
+            </div>
+            <button class="play-btn purple-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top purple">
+              <span class="game-number">Игра 3</span>
+              <span class="game-emoji">🍂</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Времена года</h3>
+              <p class="game-desc">Определяем сезон по признакам, изучаем месяцы и их порядок</p>
+              <div class="game-skills">
+                <span class="skill-tag">Сезоны</span>
+                <span class="skill-tag">Месяцы</span>
+              </div>
+            </div>
+            <button class="play-btn purple-btn">▶ Играть</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Пространство -->
+    <section class="category-section alt-bg" id="prostranstvo" data-color="orange">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">🧭</div>
+          <div>
+            <h2 class="section-title">Пространство</h2>
+            <p class="section-desc">Верх, низ, право, лево — ориентируемся в пространстве!</p>
+          </div>
+        </div>
+        <div class="games-grid">
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top orange">
+              <span class="game-number">Игра 1</span>
+              <span class="game-emoji">⬆️</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Верх и низ</h3>
+              <p class="game-desc">Учимся определять положение предметов — над, под, между</p>
+              <div class="game-skills">
+                <span class="skill-tag">Предлоги</span>
+                <span class="skill-tag">Положение</span>
+              </div>
+            </div>
+            <button class="play-btn orange-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top orange">
+              <span class="game-number">Игра 2</span>
+              <span class="game-emoji">🗺️</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Лево — право</h3>
+              <p class="game-desc">Ориентируемся на листе бумаги и в пространстве комнаты</p>
+              <div class="game-skills">
+                <span class="skill-tag">Стороны</span>
+                <span class="skill-tag">Направление</span>
+              </div>
+            </div>
+            <button class="play-btn orange-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top orange">
+              <span class="game-number">Игра 3</span>
+              <span class="game-emoji">📍</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Найди по карте</h3>
+              <p class="game-desc">Ориентируемся по схеме, ищем предметы, читаем простые маршруты</p>
+              <div class="game-skills">
+                <span class="skill-tag">Схема</span>
+                <span class="skill-tag">Маршрут</span>
+              </div>
+            </div>
+            <button class="play-btn orange-btn">▶ Играть</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Основы логики -->
+    <section class="category-section" id="logika" data-color="pink">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">🧩</div>
+          <div>
+            <h2 class="section-title">Основы логики</h2>
+            <p class="section-desc">Думаем, анализируем, находим закономерности!</p>
+          </div>
+        </div>
+        <div class="games-grid">
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top pink">
+              <span class="game-number">Игра 1</span>
+              <span class="game-emoji">🔍</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Найди лишнее</h3>
+              <p class="game-desc">Выделяем группы по признакам, находим предмет, который не подходит</p>
+              <div class="game-skills">
+                <span class="skill-tag">Классификация</span>
+                <span class="skill-tag">Признаки</span>
+              </div>
+            </div>
+            <button class="play-btn pink-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top pink">
+              <span class="game-number">Игра 2</span>
+              <span class="game-emoji">🔄</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Продолжи ряд</h3>
+              <p class="game-desc">Находим закономерность и продолжаем последовательность</p>
+              <div class="game-skills">
+                <span class="skill-tag">Закономерности</span>
+                <span class="skill-tag">Ряды</span>
+              </div>
+            </div>
+            <button class="play-btn pink-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top pink">
+              <span class="game-number">Игра 3</span>
+              <span class="game-emoji">🧪</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Логические задачки</h3>
+              <p class="game-desc">Решаем простые задачки на сравнение, причину и следствие</p>
+              <div class="game-skills">
+                <span class="skill-tag">Анализ</span>
+                <span class="skill-tag">Умозаключения</span>
+              </div>
+            </div>
+            <button class="play-btn pink-btn">▶ Играть</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Геометрические фигуры -->
+    <section class="category-section alt-bg" id="figury" data-color="teal">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon">📐</div>
+          <div>
+            <h2 class="section-title">Геометрические фигуры</h2>
+            <p class="section-desc">Круги, квадраты, треугольники — изучаем форму мира вокруг!</p>
+          </div>
+        </div>
+        <div class="games-grid">
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top teal">
+              <span class="game-number">Игра 1</span>
+              <span class="game-emoji">⭕</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Знакомые фигуры</h3>
+              <p class="game-desc">Узнаём и называем круг, квадрат, треугольник, прямоугольник</p>
+              <div class="game-skills">
+                <span class="skill-tag">Плоские фигуры</span>
+                <span class="skill-tag">Называние</span>
+              </div>
+            </div>
+            <button class="play-btn teal-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top teal">
+              <span class="game-number">Игра 2</span>
+              <span class="game-emoji">🟦</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Фигура в жизни</h3>
+              <p class="game-desc">Находим геометрические формы в окружающих предметах и природе</p>
+              <div class="game-skills">
+                <span class="skill-tag">Форма предметов</span>
+                <span class="skill-tag">Наблюдение</span>
+              </div>
+            </div>
+            <button class="play-btn teal-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="PLACEHOLDER">
+            <div class="game-card-top teal">
+              <span class="game-number">Игра 3</span>
+              <span class="game-emoji">🎨</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Собери картинку</h3>
+              <p class="game-desc">Составляем изображения из геометрических фигур — танграм и аппликации</p>
+              <div class="game-skills">
+                <span class="skill-tag">Танграм</span>
+                <span class="skill-tag">Конструирование</span>
+              </div>
+            </div>
+            <button class="play-btn teal-btn">▶ Играть</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== ПОДВАЛ ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">🎲 Математика в игре</div>
+      <div class="footer-text">
+        Сайт воспитателя <strong>Хоменковой Юлии Сергеевны</strong><br />
+        ГУО «Детский сад № 84 г. Витебска»
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ ИГР ===== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Игра</h3>
+        <button class="modal-close" id="modal-close" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="modal-body">
+        <iframe
+          id="game-iframe"
+          src=""
+          style="border:0;width:100%;height:100%"
+          allowfullscreen="true"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== УВЕДОМЛЕНИЕ ДЛЯ ЗАГЛУШЕК ===== -->
+  <div class="toast" id="toast">
+    🔜 Эта игра скоро появится! Воспитатель готовит ссылку.
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
