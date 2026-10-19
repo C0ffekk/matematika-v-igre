@@ -94,6 +94,38 @@
     </div>
   </nav>
 
+  <!-- ===== ШКАЛА ПРОГРЕССА ===== -->
+  <section class="progress-section">
+    <div class="container">
+      <div class="progress-card">
+        <div class="progress-info">
+          <div class="progress-title-wrap">
+            <span class="progress-badge-icon">⭐</span>
+            <div>
+              <div class="progress-title">Твой прогресс в играх</div>
+              <div class="progress-subtitle" id="progress-subtitle">Пройдено 0 из 18 игр</div>
+            </div>
+          </div>
+          <div class="progress-percent" id="progress-percent">0%</div>
+        </div>
+        
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%"></div>
+        </div>
+
+        <div class="progress-footer">
+          <span class="progress-hint" id="progress-hint">🎯 Проходи игры по очереди, чтобы заполнить шкалу и открыть диплом!</span>
+          <div class="progress-footer-right">
+            <button class="reset-progress-btn" id="reset-progress-btn" title="Сбросить прогресс для новой проверки">Сбросить</button>
+            <button class="diploma-btn locked" id="open-diploma-btn">
+              <span>🔒</span> Диплом (0/18)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
   <main class="main-content" id="main-content">
 
@@ -108,7 +140,7 @@
           </div>
         </div>
         <div class="games-grid">
-          <div class="game-card" data-iframe="https://learningapps.org/watch?v=pe9276i2c26">
+          <div class="game-card" data-iframe="native_game1">
             <div class="game-card-top blue">
               <span class="game-number">Игра 1</span>
               <span class="game-emoji">🎯</span>
@@ -124,17 +156,17 @@
             <button class="play-btn blue-btn">▶ Играть</button>
           </div>
 
-          <div class="game-card" data-iframe="PLACEHOLDER">
+          <div class="game-card" data-iframe="native_game2">
             <div class="game-card-top blue">
               <span class="game-number">Игра 2</span>
               <span class="game-emoji">🔢</span>
             </div>
             <div class="game-card-body">
-              <h3 class="game-title">Больше, меньше, равно</h3>
-              <p class="game-desc">Сравниваем числа и группы предметов, расставляем знаки</p>
+              <h3 class="game-title">Найди соседей чисел</h3>
+              <p class="game-desc">Учимся определять предыдущее и последующее число в числовом ряду</p>
               <div class="game-skills">
-                <span class="skill-tag">Сравнение</span>
-                <span class="skill-tag">Знаки &lt; &gt; =</span>
+                <span class="skill-tag">Соседи числа</span>
+                <span class="skill-tag">Числовой ряд</span>
               </div>
             </div>
             <button class="play-btn blue-btn">▶ Играть</button>
@@ -487,14 +519,24 @@
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal-window">
       <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">Игра</h3>
-        <button class="modal-close" id="modal-close" aria-label="Закрыть">✕</button>
+        <div class="modal-title-wrap">
+          <span class="modal-game-icon" id="modal-game-icon">🎯</span>
+          <div>
+            <h3 class="modal-title" id="modal-title">Игра</h3>
+            <p class="modal-subtitle" id="modal-subtitle">Интерактивное математическое задание</p>
+          </div>
+        </div>
+        <div class="modal-header-actions">
+          <button class="modal-tool-btn" id="sound-toggle-btn" title="Включить / выключить звук" aria-label="Звук">🔊</button>
+          <button class="modal-close" id="modal-close" aria-label="Закрыть">✕</button>
+        </div>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="modal-body">
+        <div class="native-game-container" id="native-game-container"></div>
         <iframe
           id="game-iframe"
           src=""
-          style="border:0;width:100%;height:100%"
+          style="border:0;width:100%;height:100%;display:none;"
           allowfullscreen="true"
           webkitallowfullscreen="true"
           mozallowfullscreen="true"
@@ -503,6 +545,58 @@
       </div>
     </div>
   </div>
+
+  <!-- ===== МОДАЛЬНОЕ ОКНО ДИПЛОМА ===== -->
+  <div class="modal-overlay" id="diploma-modal-overlay">
+    <div class="modal-window diploma-modal-window">
+      <div class="modal-header diploma-header">
+        <div class="modal-title-wrap">
+          <span class="modal-game-icon">🏆</span>
+          <div>
+            <h3 class="modal-title">Диплом маленького математика</h3>
+            <p class="modal-subtitle">Именная грамота за успешное прохождение игр</p>
+          </div>
+        </div>
+        <button class="modal-close" id="diploma-modal-close" aria-label="Закрыть">✕</button>
+      </div>
+
+      <div class="diploma-modal-body">
+        <!-- Поле ввода имени -->
+        <div class="diploma-input-bar">
+          <label for="child-name-input" class="diploma-input-label">Имя и фамилия ребёнка:</label>
+          <div class="diploma-input-wrap">
+            <input
+              type="text"
+              id="child-name-input"
+              class="diploma-input"
+              placeholder="Например: Миша или Артём Иванов"
+              value="Миша"
+              maxlength="32"
+            />
+            <button class="update-diploma-btn" id="update-diploma-btn">Обновить диплом ✨</button>
+          </div>
+        </div>
+
+        <!-- Холст для диплома -->
+        <div class="diploma-canvas-container">
+          <canvas id="diploma-canvas" width="1200" height="840"></canvas>
+        </div>
+
+        <!-- Кнопки действий -->
+        <div class="diploma-footer-actions">
+          <button class="diploma-action-btn download-btn" id="download-diploma-btn">
+            <span>📥</span> Скачать диплом (PNG)
+          </button>
+          <button class="diploma-action-btn print-btn" id="print-diploma-btn">
+            <span>🖨️</span> Распечатать
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ХОЛСТ ДЛЯ САЛЮТА / КОНФЕТТИ ===== -->
+  <canvas id="confetti-canvas"></canvas>
 
   <!-- ===== УВЕДОМЛЕНИЕ ДЛЯ ЗАГЛУШЕК ===== -->
   <div class="toast" id="toast">

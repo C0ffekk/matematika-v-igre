@@ -646,6 +646,181 @@ body {
 }
 
 
+/* ---------- ШКАЛА ПРОГРЕССА ---------- */
+.progress-section {
+  padding: 0 0 20px;
+}
+
+.progress-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 22px 28px;
+  box-shadow: 
+    0 10px 30px -4px rgba(30, 41, 59, 0.08),
+    0 2px 8px -1px rgba(30, 41, 59, 0.04);
+  border: 1.5px solid #EDF2F7;
+  transition: all 0.3s ease;
+}
+.progress-card:hover {
+  box-shadow: 0 14px 38px -4px rgba(30, 41, 59, 0.12);
+}
+
+.progress-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.progress-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.progress-badge-icon {
+  font-size: 2rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px rgba(245, 158, 11, 0.4));
+  animation: pulse-star 3s ease-in-out infinite;
+}
+@keyframes pulse-star {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15) rotate(5deg); }
+}
+
+.progress-title {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.progress-subtitle {
+  color: var(--text-light);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.progress-percent {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: #2563EB;
+  background: linear-gradient(135deg, #2563EB, #7C3AED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 14px;
+  background: #EEF2F6;
+  border-radius: 50px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 16px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
+  background-size: 200% 100%;
+  transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+  animation: shimmer-bar 3s linear infinite;
+}
+@keyframes shimmer-bar {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.progress-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.progress-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reset-progress-btn {
+  background: transparent;
+  border: 1px solid #E2E8F0;
+  color: #94A3B8;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+}
+.reset-progress-btn:hover {
+  color: #EF4444;
+  border-color: #FCA5A5;
+  background: #FEF2F2;
+}
+
+.progress-hint {
+  font-size: 0.85rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.diploma-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #E2E8F0;
+  color: #64748B;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.diploma-btn.locked {
+  background: #E2E8F0;
+  color: #64748B;
+  cursor: pointer;
+}
+.diploma-btn.locked:hover {
+  background: #CBD5E1;
+  color: #334155;
+  transform: translateY(-1px);
+}
+.diploma-btn.unlocked {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.45);
+  animation: pulse-diploma 2s infinite;
+}
+.diploma-btn.unlocked:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.6);
+}
+@keyframes pulse-diploma {
+  0%, 100% { transform: scale(1); box-shadow: 0 4px 18px rgba(245, 158, 11, 0.45); }
+  50% { transform: scale(1.04); box-shadow: 0 6px 26px rgba(245, 158, 11, 0.65); }
+}
+
+
 /* ---------- SECTIONS ---------- */
 .category-section {
   padding: 64px 0;
@@ -727,11 +902,46 @@ body {
   font-weight: 800;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.done-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  color: #059669;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 900;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  animation: check-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes check-pop {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
 }
 
 .game-emoji {
   font-size: 1.8rem;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  transition: transform 0.25s ease;
+}
+
+.game-card.completed .game-emoji {
+  filter: drop-shadow(0 2px 8px rgba(253, 216, 53, 0.5));
+}
+
+.game-card.completed {
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.12);
+}
+
+.game-card.completed .play-btn {
+  background: linear-gradient(135deg, #059669, #10B981);
 }
 
 .game-card-body {
@@ -842,9 +1052,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 24px;
+  padding: 16px 22px;
   border-bottom: 2px solid #EDF2F7;
   background: linear-gradient(135deg, #2563EB, #7C3AED);
+  gap: 12px;
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-game-icon {
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 .modal-title {
@@ -852,6 +1074,41 @@ body {
   font-family: 'Baloo 2', sans-serif;
   font-size: 1.15rem;
   font-weight: 800;
+  line-height: 1.2;
+}
+
+.modal-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.modal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-tool-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.modal-tool-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.08);
+}
+.modal-tool-btn:active {
+  transform: scale(0.94);
 }
 
 .modal-close {
@@ -868,6 +1125,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 .modal-close:hover {
   background: rgba(255,255,255,0.35);
@@ -876,7 +1134,9 @@ body {
 
 .modal-body {
   flex: 1;
+  position: relative;
   overflow: hidden;
+  background: #F8FAFC;
 }
 
 #game-iframe {
@@ -884,6 +1144,668 @@ body {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+/* ============================================
+   НАТИВНЫЙ ДВИЖОК ДЕТСКИХ ИГР
+   ============================================ */
+.native-game-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+  background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 100%);
+  padding: 16px 20px;
+}
+
+/* Шапка теста: Индикатор вопроса и шаги */
+.quiz-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quiz-step-label {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1E3A8A;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quiz-step-badge {
+  background: #DBEAFE;
+  color: #2563EB;
+  padding: 2px 10px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.quiz-dots-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.quiz-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #E2E8F0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.quiz-dot.active {
+  background: #3B82F6;
+  transform: scale(1.3);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
+
+.quiz-dot.done {
+  background: #10B981;
+  transform: scale(1);
+}
+
+/* Инструкция / Задание */
+.quiz-task-box {
+  background: #EFF6FF;
+  border: 1.5px solid #BFDBFE;
+  border-radius: 14px;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1E40AF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Контейнер картинки задания (Игра 1) */
+.quiz-image-box {
+  flex: 1;
+  min-height: 160px;
+  max-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+}
+
+.quiz-image {
+  max-width: 100%;
+  max-height: 230px;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: transform 0.25s ease;
+}
+
+/* Сетка кнопок с вариантами ответов */
+.quiz-options-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: auto;
+}
+
+.quiz-opt-btn {
+  background: #FFFFFF;
+  border: 2.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 14px 10px;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1E293B;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  outline: none;
+}
+
+.quiz-opt-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: #3B82F6;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+}
+
+.quiz-opt-btn:active {
+  transform: scale(0.96);
+}
+
+.quiz-opt-btn.correct-pick {
+  background: linear-gradient(135deg, #10B981, #059669) !important;
+  color: #FFFFFF !important;
+  border-color: #059669 !important;
+  transform: scale(1.08) !important;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45) !important;
+  animation: popCorrect 0.4s ease;
+}
+
+.quiz-opt-btn.wrong-pick {
+  background: #FEE2E2 !important;
+  border-color: #EF4444 !important;
+  color: #DC2626 !important;
+  animation: shakeWrong 0.4s ease;
+}
+
+@keyframes popCorrect {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1.08); }
+}
+
+@keyframes shakeWrong {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+/* ============================================
+   ИГРА 2: НАЙДИ СОСЕДЕЙ ЧИСЕЛ (Числовой ряд)
+   ============================================ */
+.seq-game-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 14px;
+}
+
+.seq-visual-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 18px 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+.seq-bg-art {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0.12;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}
+
+.seq-prompt-line {
+  position: relative;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #1E3A8A;
+  margin-bottom: 16px;
+}
+
+.seq-track-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.seq-cell {
+  position: relative;
+  aspect-ratio: 1 / 1.15;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+}
+
+/* Заданные (нечётные) числа */
+.seq-cell.fixed {
+  background: #E0E7FF;
+  color: #3730A3;
+  border: 2px solid #C7D2FE;
+  box-shadow: 0 2px 6px rgba(55, 48, 163, 0.08);
+}
+
+/* Пустые ячейки (пропуски) */
+.seq-cell.slot {
+  background: #FFFFFF;
+  border: 2.5px dashed #CBD5E1;
+  color: #94A3B8;
+  cursor: pointer;
+}
+
+.seq-cell.slot:hover {
+  border-color: #3B82F6;
+  background: #F0F7FF;
+  transform: translateY(-2px);
+}
+
+/* Активная ячейка для ввода */
+.seq-cell.slot.active {
+  background: #EFF6FF;
+  border: 3px solid #3B82F6;
+  color: #2563EB;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+  transform: scale(1.08);
+  animation: pulseSlot 1.5s infinite;
+}
+
+@keyframes pulseSlot {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.45); }
+}
+
+/* Правильно заполненная ячейка */
+.seq-cell.slot.filled {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #FFFFFF;
+  border: 2px solid #059669;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+  animation: popCorrect 0.35s ease;
+}
+
+/* Банк чисел для выбора */
+.seq-bank-card {
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+  margin-top: auto;
+}
+
+.seq-bank-header {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.seq-bank-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.seq-bank-btn {
+  min-width: 52px;
+  height: 52px;
+  padding: 0 14px;
+  background: #F8FAFC;
+  border: 2px solid #CBD5E1;
+  border-radius: 14px;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1E293B;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.seq-bank-btn:hover {
+  background: #3B82F6;
+  border-color: #2563EB;
+  color: #FFFFFF;
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+.seq-bank-btn:active {
+  transform: scale(0.94);
+}
+
+.seq-bank-btn.shake-wrong {
+  animation: shakeWrong 0.4s ease;
+  background: #FEE2E2 !important;
+  border-color: #EF4444 !important;
+  color: #DC2626 !important;
+}
+
+/* ============================================
+   ЭКРАН ПОБЕДЫ (ВИКТОРИЯ) В КОНЦЕ ТЕСТА
+   ============================================ */
+.quiz-victory-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  animation: fadeInVictory 0.5s ease;
+}
+
+@keyframes fadeInVictory {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.victory-trophy-icon {
+  font-size: 4.5rem;
+  line-height: 1;
+  margin-bottom: 14px;
+  animation: floatTrophy 2.4s ease-in-out infinite;
+}
+
+@keyframes floatTrophy {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px) rotate(4deg); }
+}
+
+.victory-title {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #1E3A8A;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.victory-desc {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #475569;
+  max-width: 480px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* ГЛАВНАЯ КНОПКА ЗАВЕРШЕНИЯ ТЕСТА (Открывается только после финиша!) */
+.quiz-complete-finish-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 34px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: pulseFinishBtn 2s infinite;
+}
+
+.quiz-complete-finish-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 12px 32px rgba(16, 185, 129, 0.6);
+}
+
+.quiz-complete-finish-btn:active {
+  transform: scale(0.97);
+}
+
+@keyframes pulseFinishBtn {
+  0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45); }
+  50% { transform: scale(1.03); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.65); }
+}
+
+.quiz-replay-link {
+  margin-top: 14px;
+  background: transparent;
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #64748B;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.quiz-replay-link:hover {
+  color: #1E293B;
+  background: #E2E8F0;
+}
+
+/* Адаптивность для мобильных телефонов */
+@media (max-width: 640px) {
+  .native-game-container {
+    padding: 12px 14px;
+  }
+  .quiz-image-box {
+    max-height: 180px;
+    min-height: 120px;
+  }
+  .quiz-image {
+    max-height: 160px;
+  }
+  .quiz-options-grid {
+    gap: 8px;
+  }
+  .quiz-opt-btn {
+    padding: 10px 6px;
+    font-size: 1.6rem;
+  }
+  .seq-track-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .seq-cell {
+    font-size: 1.3rem;
+  }
+  .seq-bank-btn {
+    min-width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+    padding: 0 8px;
+  }
+  .quiz-complete-finish-btn {
+    padding: 14px 22px;
+    font-size: 1rem;
+    width: 100%;
+  }
+}
+
+/* Аккуратная отметка прохождения на карточке */
+.game-card.completed {
+  box-shadow: 0 4px 22px rgba(16, 185, 129, 0.18);
+}
+
+.game-number-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.game-done-tag {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  backdrop-filter: blur(4px);
+  animation: badge-fade 0.3s ease;
+}
+@keyframes badge-fade {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- ДИПЛОМ МОДАЛКА ---------- */
+.diploma-modal-window {
+  max-width: 920px;
+  height: 92vh;
+  max-height: 840px;
+}
+
+.diploma-header {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+}
+
+.diploma-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #F8FAFC;
+}
+
+.diploma-input-bar {
+  background: #ffffff;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.diploma-input-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.diploma-input-wrap {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.diploma-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 10px 16px;
+  border: 2px solid #CBD5E1;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1E293B;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.diploma-input:focus {
+  border-color: #F59E0B;
+}
+
+.update-diploma-btn {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.update-diploma-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.diploma-canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 10px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+#diploma-canvas {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  display: block;
+}
+
+.diploma-footer-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-bottom: 6px;
+}
+
+.diploma-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 26px;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.download-btn {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: white;
+}
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+}
+
+.print-btn {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  color: white;
+}
+.print-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+}
+
+/* Холст конфетти */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2500;
 }
 
 
