@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2.1" />
 </head>
 <body>
 
@@ -116,7 +116,6 @@
         <div class="progress-footer">
           <span class="progress-hint" id="progress-hint">🎯 Проходи игры по очереди, чтобы заполнить шкалу и открыть диплом!</span>
           <div class="progress-footer-right">
-            <button class="reset-progress-btn" id="reset-progress-btn" title="Сбросить прогресс для новой проверки">Сбросить</button>
             <button class="diploma-btn locked" id="open-diploma-btn">
               <span>🔒</span> Диплом (0/18)
             </button>
@@ -140,7 +139,7 @@
           </div>
         </div>
         <div class="games-grid">
-          <div class="game-card" data-iframe="native_game1">
+          <div class="game-card" data-game-id="kolichestvo_0" data-iframe="native_game1">
             <div class="game-card-top blue">
               <span class="game-number">Игра 1</span>
               <span class="game-emoji">🎯</span>
@@ -156,7 +155,7 @@
             <button class="play-btn blue-btn">▶ Играть</button>
           </div>
 
-          <div class="game-card" data-iframe="native_game2">
+          <div class="game-card" data-game-id="kolichestvo_1" data-iframe="native_game2">
             <div class="game-card-top blue">
               <span class="game-number">Игра 2</span>
               <span class="game-emoji">🔢</span>
@@ -603,6 +602,6 @@
     🔜 Эта игра скоро появится! Воспитатель готовит ссылку.
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2.1"></script>
 </body>
 </html>

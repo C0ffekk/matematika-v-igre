@@ -754,24 +754,6 @@ body {
   gap: 10px;
 }
 
-.reset-progress-btn {
-  background: transparent;
-  border: 1px solid #E2E8F0;
-  color: #94A3B8;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 8px 14px;
-  border-radius: 50px;
-  transition: all 0.2s ease;
-}
-.reset-progress-btn:hover {
-  color: #EF4444;
-  border-color: #FCA5A5;
-  background: #FEF2F2;
-}
-
 .progress-hint {
   font-size: 0.85rem;
   color: #64748B;

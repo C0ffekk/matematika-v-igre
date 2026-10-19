@@ -88,7 +88,6 @@ const progressHint       = document.getElementById('progress-hint');
 
 // Диплом
 const openDiplomaBtn     = document.getElementById('open-diploma-btn');
-const resetProgressBtn   = document.getElementById('reset-progress-btn');
 const diplomaOverlay     = document.getElementById('diploma-modal-overlay');
 const diplomaClose       = document.getElementById('diploma-modal-close');
 const childNameInput     = document.getElementById('child-name-input');
@@ -591,23 +590,28 @@ function renderVictoryView(gameId, feedbackMsg) {
 // 3. ОТКРЫТИЕ И ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА
 // ============================================
 function openGame(url, title, gameId) {
-  currentGameId = gameId;
   modalTitle.textContent = title;
 
-  if (gameId === 'kolichestvo_0') {
-    modalSubtitle.textContent = 'Интерактивный тест: Счёт предметов';
+  const isGame1 = (gameId === 'kolichestvo_0' || url === 'native_game1' || (title && title.includes('Весёлый счёт')));
+  const isGame2 = (gameId === 'kolichestvo_1' || url === 'native_game2' || (title && title.includes('Найди соседей')));
+
+  if (isGame1) {
+    currentGameId = 'kolichestvo_0';
+    if (modalSubtitle) modalSubtitle.textContent = 'Интерактивный тест: Счёт предметов';
     gameIframe.style.display = 'none';
     gameIframe.src = '';
     nativeGameContainer.style.display = 'flex';
     startNativeGame1();
-  } else if (gameId === 'kolichestvo_1') {
-    modalSubtitle.textContent = 'Интерактивный тест: Соседи чисел';
+  } else if (isGame2) {
+    currentGameId = 'kolichestvo_1';
+    if (modalSubtitle) modalSubtitle.textContent = 'Интерактивный тест: Соседи чисел';
     gameIframe.style.display = 'none';
     gameIframe.src = '';
     nativeGameContainer.style.display = 'flex';
     startNativeGame2();
   } else {
-    modalSubtitle.textContent = 'Обучающая игра';
+    currentGameId = gameId;
+    if (modalSubtitle) modalSubtitle.textContent = 'Обучающая игра';
     nativeGameContainer.style.display = 'none';
     nativeGameContainer.innerHTML = '';
     gameIframe.style.display = 'block';
@@ -887,19 +891,7 @@ function closeDiplomaModal() {
   document.body.style.overflow = '';
 }
 
-// Слушатели для диплома и сброса
-if (resetProgressBtn) {
-  resetProgressBtn.addEventListener('click', () => {
-    if (confirm('Сбросить весь прогресс пройденных игр для новой проверки?')) {
-      completedGames.clear();
-      try {
-        localStorage.removeItem(STORAGE_COMPLETED_KEY);
-      } catch (e) {}
-      updateProgressUI();
-      showToast('🔄 Прогресс сброшен!');
-    }
-  });
-}
+// Слушатели для диплома
 
 if (openDiplomaBtn) {
   openDiplomaBtn.addEventListener('click', () => {
