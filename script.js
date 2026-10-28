@@ -1029,7 +1029,7 @@ navBtns.forEach(btn => {
   });
 });
 
-const sectionIds = ['kolichestvo','velichina','vremya','prostranstvo','logika','figury'];
+const sectionIds = ['kolichestvo','velichina','vremya','prostranstvo','logika','figury','parents-folder'];
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -1049,7 +1049,169 @@ sectionIds.forEach(id => {
 
 
 // ============================================
-// 7. СТАРТ
+// 7. ПАПКА-ПЕРЕДВИЖКА ДЛЯ РОДИТЕЛЕЙ (ФЭМП)
 // ============================================
-document.addEventListener('DOMContentLoaded', initCards);
-if (document.readyState !== 'loading') initCards();
+function initParentsFolder() {
+  const container   = document.getElementById('parents-cards-container');
+  const tabs        = document.querySelectorAll('.p-tab-btn');
+  const searchInput = document.getElementById('parents-search-input');
+  const searchClear = document.getElementById('parents-search-clear');
+  const emptySearch = document.getElementById('parents-empty-search');
+
+  if (!container || typeof PARENTS_CONSULTATIONS === 'undefined') return;
+
+  let currentCategory = 'all';
+  let searchQuery = '';
+
+  function renderCards() {
+    const q = searchQuery.toLowerCase().trim();
+
+    const filtered = PARENTS_CONSULTATIONS.filter(item => {
+      const matchCat = (currentCategory === 'all') || (item.category === currentCategory);
+      const matchSearch = !q ||
+        item.title.toLowerCase().includes(q) ||
+        item.subtitle.toLowerCase().includes(q) ||
+        item.summary.toLowerCase().includes(q) ||
+        item.contentHtml.toLowerCase().includes(q);
+
+      return matchCat && matchSearch;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = '';
+      if (emptySearch) emptySearch.style.display = 'block';
+      return;
+    }
+
+    if (emptySearch) emptySearch.style.display = 'none';
+
+    container.innerHTML = filtered.map(item => `
+      <article class="parent-card" id="card-${item.id}">
+        <div class="parent-card-header" onclick="toggleParentCard('${item.id}')">
+          <div class="p-card-left">
+            <div class="p-card-icon-badge">${item.icon}</div>
+            <div class="p-card-title-group">
+              <div class="p-card-meta">
+                <span class="p-card-category-tag">${item.categoryLabel}</span>
+                <span class="p-card-time">⏱️ ${item.readingTime}</span>
+                <span class="p-card-age">👶 ${item.age}</span>
+              </div>
+              <h3 class="p-card-title">${item.title}</h3>
+              <p class="p-card-subtitle">${item.subtitle}</p>
+              <p class="p-card-summary">${item.summary}</p>
+            </div>
+          </div>
+          <div class="p-card-actions">
+            <button class="p-btn-print" onclick="event.stopPropagation(); printConsultation('${item.id}')" title="Распечатать памятку" aria-label="Печать">🖨️</button>
+            <button class="p-btn-expand" id="btn-expand-${item.id}">
+              <span>Читать</span> ⬇️
+            </button>
+          </div>
+        </div>
+
+        <div class="parent-card-body">
+          ${item.contentHtml}
+          <div class="parent-card-footer">
+            <button class="p-btn-print-full" onclick="printConsultation('${item.id}')">
+              <span>🖨️</span> Распечатать памятку для дома
+            </button>
+            <button class="p-btn-collapse" onclick="toggleParentCard('${item.id}')">
+              Свернуть ⬆️
+            </button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+  }
+
+  // Первый рендер
+  renderCards();
+
+  // Табы фильтров
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentCategory = tab.dataset.cat || 'all';
+      renderCards();
+    });
+  });
+
+  // Поиск по ключевым словам
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      if (searchClear) {
+        searchClear.style.display = searchQuery ? 'flex' : 'none';
+      }
+      renderCards();
+    });
+  }
+
+  if (searchClear) {
+    searchClear.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      searchQuery = '';
+      searchClear.style.display = 'none';
+      renderCards();
+    });
+  }
+}
+
+// Раскрытие / сворачивание карточки
+function toggleParentCard(id) {
+  const card = document.getElementById(`card-${id}`);
+  if (!card) return;
+  const isExpanded = card.classList.contains('expanded');
+  card.classList.toggle('expanded');
+  const btn = document.getElementById(`btn-expand-${id}`);
+  if (btn) {
+    btn.innerHTML = isExpanded ? '<span>Читать</span> ⬇️' : '<span>Свернуть</span> ⬆️';
+  }
+}
+
+// Печать памятки для родителей
+function printConsultation(id) {
+  if (typeof PARENTS_CONSULTATIONS === 'undefined') return;
+  const item = PARENTS_CONSULTATIONS.find(c => c.id === id);
+  if (!item) return;
+
+  const printArea = document.getElementById('print-area');
+  if (!printArea) return;
+
+  printArea.innerHTML = `
+    <div style="max-width: 800px; margin: 0 auto; font-family: 'Times New Roman', serif; color: #000; line-height: 1.6;">
+      <div style="border-bottom: 2px solid #000; padding-bottom: 12px; margin-bottom: 20px; text-align: center;">
+        <h4 style="margin: 0; font-size: 15px; text-transform: uppercase;">ГУО «Детский сад № 84 г. Витебска»</h4>
+        <p style="margin: 4px 0; font-size: 13px;">Папка-передвижка: Консультации для родителей по ФЭМП</p>
+        <p style="margin: 0; font-size: 13px; font-weight: bold;">Воспитатель: Хоменкова Юлия Сергеевна</p>
+      </div>
+
+      <h2 style="font-size: 20px; margin-bottom: 4px; text-align: center;">${item.title}</h2>
+      <p style="font-size: 14px; color: #555; text-align: center; margin-bottom: 20px; font-style: italic;">${item.subtitle}</p>
+
+      <div style="font-size: 14px; text-align: justify;">
+        ${item.contentHtml}
+      </div>
+
+      <div style="border-top: 1px solid #ccc; margin-top: 30px; padding-top: 10px; font-size: 12px; display: flex; justify-content: space-between;">
+        <span>Сайт «Математика в игре»</span>
+        <span>г. Витебск, 2026 г.</span>
+      </div>
+    </div>
+  `;
+
+  window.print();
+}
+
+
+// ============================================
+// 8. СТАРТ
+// ============================================
+function initAll() {
+  initCards();
+  initParentsFolder();
+}
+
+document.addEventListener('DOMContentLoaded', initAll);
+if (document.readyState !== 'loading') initAll();

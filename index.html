@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=2.1" />
+  <link rel="stylesheet" href="style.css?v=2.2" />
 </head>
 <body>
 
@@ -67,6 +67,7 @@
         <span class="tag">🧭 Пространство</span>
         <span class="tag">🧩 Логика</span>
         <span class="tag">📐 Фигуры</span>
+        <a href="#parents-folder" class="tag tag-parents">📁 Папка для родителей</a>
       </div>
 
     </div>
@@ -90,6 +91,7 @@
         <button class="nav-btn" data-target="prostranstvo">🧭 Пространство</button>
         <button class="nav-btn" data-target="logika">🧩 Логика</button>
         <button class="nav-btn" data-target="figury">📐 Фигуры</button>
+        <button class="nav-btn nav-btn-parents" data-target="parents-folder">📁 Родителям</button>
       </div>
     </div>
   </nav>
@@ -500,6 +502,78 @@
       </div>
     </section>
 
+
+    <!-- ===== ПАПКА-ПЕРЕДВИЖКА ДЛЯ РОДИТЕЛЕЙ ===== -->
+    <section class="category-section parents-section" id="parents-folder">
+      <div class="container">
+
+        <!-- Шапка раздела -->
+        <div class="section-header parents-section-header">
+          <div class="section-icon">📁</div>
+          <div>
+            <div class="parents-badge">👨‍👩‍👧 МЕТОДИЧЕСКИЙ УГОЛОК ДЛЯ СЕМЬИ</div>
+            <h2 class="section-title">Папка-передвижка для родителей</h2>
+            <p class="section-desc">Консультации по ФЭМП, развивающие игры дома и на прогулке, математические стихи</p>
+          </div>
+        </div>
+
+        <!-- Презентационная карточка с обложкой -->
+        <div class="parents-hero-card">
+          <div class="parents-cover-wrap">
+            <img src="assets/parents/cover.png" alt="Консультации для родителей по ФЭМП" class="parents-cover-img" />
+          </div>
+          <div class="parents-intro-content">
+            <div class="parents-welcome-tag">💡 В помощь заботливым родителям</div>
+            <h3 class="parents-hero-title">Математика без слёз: учимся играя дома и на прогулке</h3>
+            <p class="parents-hero-text">
+              Уважаемые родители, бабушки и дедушки! В этой электронной папке-передвижке собраны практические советы и весёлые домашние игры. Они помогут привить ребёнку интерес к числам, развить логику и пространственное мышление легко и с радостью. Любую консультацию можно развернуть для чтения или распечатать как памятку.
+            </p>
+            <div class="parents-author-badge">
+              <span class="p-author-icon">👩‍🏫</span>
+              <div>
+                <strong>Хоменкова Юлия Сергеевна</strong> — воспитатель дошкольного образования<br />
+                <span>ГУО «Детский сад № 84 г. Витебска»</span>
+              </div>
+            </div>
+
+            <!-- Поиск по консультациям -->
+            <div class="parents-search-bar">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="parents-search-input" class="parents-search-input" placeholder="Поиск игры или темы (например: пуговицы, часы, ослик, магазин...)" />
+              <button class="parents-search-clear" id="parents-search-clear" style="display:none;" title="Очистить поиск">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Панель фильтров по категориям -->
+        <div class="parents-filter-bar">
+          <span class="filter-label">Темы консультаций:</span>
+          <div class="parents-tabs" id="parents-tabs">
+            <button class="p-tab-btn active" data-cat="all">🌟 Все темы (11)</button>
+            <button class="p-tab-btn" data-cat="schet">🔢 Счёт и цифры (4)</button>
+            <button class="p-tab-btn" data-cat="prostranstvo">🧭 Пространство (2)</button>
+            <button class="p-tab-btn" data-cat="vremya">⏰ Время (2)</button>
+            <button class="p-tab-btn" data-cat="geometriya">📐 Геометрия (2)</button>
+            <button class="p-tab-btn" data-cat="logika">🧩 Логика (2)</button>
+            <button class="p-tab-btn" data-cat="motorika">🖐️ Моторика (1)</button>
+          </div>
+        </div>
+
+        <!-- Контейнер для динамического рендеринга карточек -->
+        <div class="parents-cards-container" id="parents-cards-container">
+          <!-- Карточки генерируются скриптом из parents-data.js -->
+        </div>
+
+        <!-- Сообщение если поиск не дал результатов -->
+        <div class="parents-empty-search" id="parents-empty-search" style="display:none;">
+          <div class="empty-icon">🔎</div>
+          <h4>Ничего не найдено</h4>
+          <p>Попробуйте ввести другое слово или сбросить фильтр</p>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- ===== ПОДВАЛ ===== -->
@@ -602,6 +676,11 @@
     🔜 Эта игра скоро появится! Воспитатель готовит ссылку.
   </div>
 
-  <script src="script.js?v=2.1"></script>
+  <!-- ===== ОБЛАСТЬ ДЛЯ ПЕЧАТИ ПАМЯТОК ДЛЯ РОДИТЕЛЕЙ ===== -->
+  <div id="print-area" class="print-area"></div>
+
+  <!-- ===== ДАННЫЕ И СКРИПТЫ ===== -->
+  <script src="parents-data.js?v=2.2"></script>
+  <script src="script.js?v=2.2"></script>
 </body>
 </html>
