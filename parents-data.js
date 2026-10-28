@@ -342,7 +342,7 @@ const PARENTS_CONSULTATIONS = [
   {
     id: 'consult-6',
     category: 'geometriya',
-    categoryLabel: '📐 Геометрия',
+    categoryLabel: '📐 Фигуры и формы',
     icon: '📐',
     title: 'Геометрия вокруг нас',
     subtitle: 'Развиваем пространственное мышление, глазомер и конструктивные навыки',
