@@ -89,13 +89,34 @@ const GAMES = {
     { title: "Логические задачки", url: null }
   ],
   figury: [
-    { title: "Знакомые фигуры", url: null },
-    { title: "Фигура в жизни",  url: null },
-    { title: "Собери картинку", url: null }
+    {
+      title: "Круг и квадрат: на что похоже?",
+      url: "https://learningapps.org/watch?v=p4fpa9yq326"
+    },
+    {
+      title: "Какой формы предмет?",
+      url: "https://learningapps.org/watch?v=paivm8crj26"
+    },
+    {
+      title: "Геометрические формы: найди пару",
+      url: "https://learningapps.org/watch?v=pykjttfyc26"
+    },
+    {
+      title: "Многоугольники и фигуры без углов",
+      url: "https://learningapps.org/watch?v=pkats1w8k26"
+    },
+    {
+      title: "Плоские и объёмные фигуры",
+      url: "https://learningapps.org/watch?v=pppbpumic26"
+    },
+    {
+      title: "Найди лишнюю фигуру",
+      url: "https://learningapps.org/watch?v=pjwnhfbv526"
+    }
   ]
 };
 
-let TOTAL_GAMES = 25;
+let TOTAL_GAMES = 28;
 const STORAGE_COMPLETED_KEY = 'matematika_completed_games_v1';
 const STORAGE_NAME_KEY      = 'matematika_child_name_v1';
 
