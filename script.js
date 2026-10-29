@@ -6,7 +6,7 @@
 
 'use strict';
 
-// ===== КОНФИГУРАЦИЯ ИГР (Всего 18) =====
+// ===== КОНФИГУРАЦИЯ ИГР (Всего 19) =====
 const GAMES = {
   kolichestvo: [
     {
@@ -23,9 +23,22 @@ const GAMES = {
     }
   ],
   velichina: [
-    { title: "Длинный — короткий", url: null },
-    { title: "Тяжелее или легче?",  url: null },
-    { title: "Высокий — низкий",    url: null }
+    {
+      title: "От маленького к большому",
+      url: "https://learningapps.org/watch?v=p7tam8w0k26"
+    },
+    {
+      title: "Выше, ниже, фрукты ближе.",
+      url: "https://learningapps.org/watch?v=pwkei8cqk26"
+    },
+    {
+      title: "«Башни» (Сериация по высоте)",
+      url: "https://learningapps.org/watch?v=p1saih2e526"
+    },
+    {
+      title: "Расставь матрёшек по высоте",
+      url: "https://learningapps.org/watch?v=pw3ew7h0j26"
+    }
   ],
   vremya: [
     { title: "Части суток",   url: null },
@@ -49,7 +62,7 @@ const GAMES = {
   ]
 };
 
-const TOTAL_GAMES = 18;
+let TOTAL_GAMES = 19;
 const STORAGE_COMPLETED_KEY = 'matematika_completed_games_v1';
 const STORAGE_NAME_KEY      = 'matematika_child_name_v1';
 
@@ -75,6 +88,7 @@ const modalSubtitle       = document.getElementById('modal-subtitle');
 const modalGameIcon       = document.getElementById('modal-game-icon');
 const modalClose          = document.getElementById('modal-close');
 const soundToggleBtn      = document.getElementById('sound-toggle-btn');
+const modalFinishBtn      = document.getElementById('modal-finish-game-btn');
 const nativeGameContainer = document.getElementById('native-game-container');
 const toast               = document.getElementById('toast');
 const navBtns             = document.querySelectorAll('.nav-btn');
@@ -229,6 +243,9 @@ function initCards() {
 
 // Обновление шкалы прогресса и бейджей на карточках
 function updateProgressUI() {
+  const allCards = document.querySelectorAll('.game-card');
+  if (allCards.length > 0) TOTAL_GAMES = allCards.length;
+
   const count = completedGames.size;
   const percent = Math.min(100, Math.round((count / TOTAL_GAMES) * 100));
 
@@ -592,6 +609,10 @@ function renderVictoryView(gameId, feedbackMsg) {
 function openGame(url, title, gameId) {
   modalTitle.textContent = title;
 
+  const card = document.querySelector(`.game-card[data-game-id="${gameId}"]`);
+  const emoji = card?.querySelector('.game-emoji')?.textContent || '🎯';
+  if (modalGameIcon) modalGameIcon.textContent = emoji;
+
   const isGame1 = (gameId === 'kolichestvo_0' || url === 'native_game1' || (title && title.includes('Весёлый счёт')));
   const isGame2 = (gameId === 'kolichestvo_1' || url === 'native_game2' || (title && title.includes('Найди соседей')));
 
@@ -601,6 +622,7 @@ function openGame(url, title, gameId) {
     gameIframe.style.display = 'none';
     gameIframe.src = '';
     nativeGameContainer.style.display = 'flex';
+    if (modalFinishBtn) modalFinishBtn.style.display = 'none';
     startNativeGame1();
   } else if (isGame2) {
     currentGameId = 'kolichestvo_1';
@@ -608,14 +630,26 @@ function openGame(url, title, gameId) {
     gameIframe.style.display = 'none';
     gameIframe.src = '';
     nativeGameContainer.style.display = 'flex';
+    if (modalFinishBtn) modalFinishBtn.style.display = 'none';
     startNativeGame2();
   } else {
     currentGameId = gameId;
-    if (modalSubtitle) modalSubtitle.textContent = 'Обучающая игра';
+    if (modalSubtitle) modalSubtitle.textContent = 'Обучающая онлайн-игра';
     nativeGameContainer.style.display = 'none';
     nativeGameContainer.innerHTML = '';
     gameIframe.style.display = 'block';
     gameIframe.src = url;
+
+    if (modalFinishBtn) {
+      modalFinishBtn.style.display = 'inline-flex';
+      if (completedGames.has(gameId)) {
+        modalFinishBtn.textContent = '✓ Пройдено (+1 ⭐)';
+        modalFinishBtn.classList.add('already-done');
+      } else {
+        modalFinishBtn.textContent = '⭐ Завершить игру';
+        modalFinishBtn.classList.remove('already-done');
+      }
+    }
   }
 
   overlay.classList.add('open');
@@ -629,6 +663,32 @@ function closeModal() {
     gameIframe.src = '';
     if (nativeGameContainer) nativeGameContainer.innerHTML = '';
   }, 300);
+}
+
+// Кнопка подтверждения прохождения для сторонних игр (LearningApps)
+if (modalFinishBtn) {
+  modalFinishBtn.addEventListener('click', () => {
+    if (!currentGameId) return;
+    const wasAlreadyDone = completedGames.has(currentGameId);
+    completedGames.add(currentGameId);
+    try {
+      localStorage.setItem(STORAGE_COMPLETED_KEY, JSON.stringify([...completedGames]));
+    } catch (e) {}
+
+    updateProgressUI();
+    SoundEffects.victory();
+    launchConfetti();
+    closeModal();
+    showToast(`🎉 Молодец! Задание «${modalTitle.textContent}» пройдено! ⭐`);
+
+    if (completedGames.size === TOTAL_GAMES && !wasAlreadyDone) {
+      setTimeout(() => {
+        openDiplomaModal();
+        launchConfetti();
+        showToast('🏆 УРА! Все игры пройдены! Твой диплом готов!');
+      }, 1200);
+    }
+  });
 }
 
 

@@ -1071,6 +1071,38 @@ body {
   gap: 10px;
 }
 
+.modal-finish-game-btn {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.92rem;
+  padding: 7px 15px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.modal-finish-game-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.6);
+  background: linear-gradient(135deg, #059669, #047857);
+}
+.modal-finish-game-btn:active {
+  transform: scale(0.96);
+}
+.modal-finish-game-btn.already-done {
+  background: rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: none;
+}
+
 .modal-tool-btn {
   background: rgba(255, 255, 255, 0.2);
   border: none;
@@ -1889,6 +1921,8 @@ body {
   .hero-title { font-size: 2.2rem; gap: 8px; }
   .hero-time-badge { padding: 10px 20px; font-size: 0.88rem; }
   .play-btn { font-size: 0.95rem; padding: 11px; }
+  .modal-finish-game-btn { font-size: 0.8rem; padding: 5px 10px; }
+  .modal-title { font-size: 1rem; }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
