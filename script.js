@@ -6,7 +6,7 @@
 
 'use strict';
 
-// ===== КОНФИГУРАЦИЯ ИГР (Всего 22) =====
+// ===== КОНФИГУРАЦИЯ ИГР (Всего 25) =====
 const GAMES = {
   kolichestvo: [
     {
@@ -53,9 +53,30 @@ const GAMES = {
     }
   ],
   vremya: [
-    { title: "Части суток",   url: null },
-    { title: "Дни недели",    url: null },
-    { title: "Времена года",  url: null }
+    {
+      title: "Время суток: помоги Солнышку",
+      url: "https://learningapps.org/watch?v=pup19qkmc26"
+    },
+    {
+      title: "Части суток: найди пару",
+      url: "https://learningapps.org/watch?v=pmi7g5thj26"
+    },
+    {
+      title: "Каждому времени суток свои дела",
+      url: "https://learningapps.org/watch?v=p7qsqsw2326"
+    },
+    {
+      title: "Время года",
+      url: "https://learningapps.org/watch?v=pevvcbj6k26"
+    },
+    {
+      title: "Времена года: Волшебное дерево",
+      url: "https://learningapps.org/watch?v=p5p1srhdc26"
+    },
+    {
+      title: "Когда это бывает? Времена года",
+      url: "https://learningapps.org/watch?v=p8xetf3ft26"
+    }
   ],
   prostranstvo: [
     { title: "Верх и низ",       url: null },
@@ -74,7 +95,7 @@ const GAMES = {
   ]
 };
 
-let TOTAL_GAMES = 22;
+let TOTAL_GAMES = 25;
 const STORAGE_COMPLETED_KEY = 'matematika_completed_games_v1';
 const STORAGE_NAME_KEY      = 'matematika_child_name_v1';
 
