@@ -142,8 +142,8 @@ const modalSubtitle       = document.getElementById('modal-subtitle');
 const modalGameIcon       = document.getElementById('modal-game-icon');
 const modalClose          = document.getElementById('modal-close');
 const soundToggleBtn      = document.getElementById('sound-toggle-btn');
-const modalFinishBtn      = document.getElementById('modal-finish-game-btn');
-const modalManualCheckBtn = document.getElementById('modal-manual-check-btn');
+const modalFinishBtn        = document.getElementById('modal-finish-game-btn');
+const modalCheckSolutionBtn = document.getElementById('modal-check-solution-btn');
 const modalSolvedBanner   = document.getElementById('modal-solved-banner');
 const modalSolvedBtn      = document.getElementById('modal-solved-btn');
 const nativeGameContainer = document.getElementById('native-game-container');
@@ -665,7 +665,6 @@ function renderVictoryView(gameId, feedbackMsg) {
 // ============================================
 let isCurrentGameSolved = false;
 let currentGameStartTime = 0;
-let gameManualCheckTimer = null;
 
 // Слушаем сообщения об успешном прохождении от LearningApps (postMessage)
 window.addEventListener('message', (event) => {
@@ -708,12 +707,8 @@ function onGameSolvedSuccess() {
   if (isCurrentGameSolved) return;
   isCurrentGameSolved = true;
 
-  if (gameManualCheckTimer) {
-    clearTimeout(gameManualCheckTimer);
-    gameManualCheckTimer = null;
-  }
-  if (modalManualCheckBtn) {
-    modalManualCheckBtn.style.display = 'none';
+  if (modalCheckSolutionBtn) {
+    modalCheckSolutionBtn.style.display = 'none';
   }
 
   // Кнопка появляется ТОЛЬКО ТЕПЕРЬ — строго после успешного решения!
@@ -746,12 +741,8 @@ function openGame(url, title, gameId) {
   if (modalSolvedBanner) {
     modalSolvedBanner.style.display = 'none';
   }
-  if (modalManualCheckBtn) {
-    modalManualCheckBtn.style.display = 'none';
-  }
-  if (gameManualCheckTimer) {
-    clearTimeout(gameManualCheckTimer);
-    gameManualCheckTimer = null;
+  if (modalCheckSolutionBtn) {
+    modalCheckSolutionBtn.style.display = 'none';
   }
 
   const card = document.querySelector(`.game-card[data-game-id="${gameId}"]`);
@@ -764,6 +755,7 @@ function openGame(url, title, gameId) {
   if (isGame1) {
     currentGameId = 'kolichestvo_0';
     if (modalSubtitle) modalSubtitle.textContent = 'Интерактивный тест: Счёт предметов';
+    if (modalCheckSolutionBtn) modalCheckSolutionBtn.style.display = 'none';
     gameIframe.style.display = 'none';
     gameIframe.src = '';
     nativeGameContainer.style.display = 'flex';
@@ -771,6 +763,7 @@ function openGame(url, title, gameId) {
   } else if (isGame2) {
     currentGameId = 'kolichestvo_1';
     if (modalSubtitle) modalSubtitle.textContent = 'Интерактивный тест: Соседи чисел';
+    if (modalCheckSolutionBtn) modalCheckSolutionBtn.style.display = 'none';
     gameIframe.style.display = 'none';
     gameIframe.src = '';
     nativeGameContainer.style.display = 'flex';
@@ -778,19 +771,12 @@ function openGame(url, title, gameId) {
   } else {
     currentGameId = gameId;
     if (modalSubtitle) modalSubtitle.textContent = 'Обучающая онлайн-игра';
+    // Кнопка проверки в шапке модального окна для удобства на любом устройстве
+    if (modalCheckSolutionBtn) modalCheckSolutionBtn.style.display = 'inline-flex';
     nativeGameContainer.style.display = 'none';
     nativeGameContainer.innerHTML = '';
     gameIframe.style.display = 'block';
     gameIframe.src = url;
-
-    // Кнопка завершения появится автоматически после проверки в LearningApps.
-    // На случай, если ребёнок решил верно, но проверка не сработала по сети,
-    // через 35 секунд появится деликатная кнопка «Я всё выполнил ✓».
-    gameManualCheckTimer = setTimeout(() => {
-      if (!isCurrentGameSolved && modalManualCheckBtn) {
-        modalManualCheckBtn.style.display = 'inline-flex';
-      }
-    }, 35000);
   }
 
   overlay.classList.add('open');
@@ -801,13 +787,9 @@ function closeModal() {
   overlay.classList.remove('open');
   document.body.style.overflow = '';
   isCurrentGameSolved = false;
-  if (gameManualCheckTimer) {
-    clearTimeout(gameManualCheckTimer);
-    gameManualCheckTimer = null;
-  }
   if (modalFinishBtn) modalFinishBtn.style.display = 'none';
   if (modalSolvedBanner) modalSolvedBanner.style.display = 'none';
-  if (modalManualCheckBtn) modalManualCheckBtn.style.display = 'none';
+  if (modalCheckSolutionBtn) modalCheckSolutionBtn.style.display = 'none';
 
   setTimeout(() => {
     gameIframe.src = '';
@@ -848,9 +830,12 @@ if (modalSolvedBtn) {
   modalSolvedBtn.addEventListener('click', handleCompleteGame);
 }
 
-if (modalManualCheckBtn) {
-  modalManualCheckBtn.addEventListener('click', () => {
-    onGameSolvedSuccess();
+if (modalCheckSolutionBtn) {
+  modalCheckSolutionBtn.addEventListener('click', () => {
+    if (gameIframe && gameIframe.contentWindow) {
+      gameIframe.contentWindow.postMessage('checkSolution', '*');
+      SoundEffects.click();
+    }
   });
 }
 

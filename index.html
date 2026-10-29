@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=2.9" />
+  <link rel="stylesheet" href="style.css?v=3.0" />
 </head>
 <body>
 
@@ -760,7 +760,7 @@
           </div>
         </div>
         <div class="modal-header-actions">
-          <button class="modal-manual-check-btn" id="modal-manual-check-btn" title="Нажмите, если вы уже выполнили задание" style="display: none;">Я всё выполнил ✓</button>
+          <button class="modal-check-solution-btn" id="modal-check-solution-btn" title="Проверить правильность решения задания" style="display: none;">✓ Проверить</button>
           <button class="modal-finish-game-btn" id="modal-finish-game-btn" title="Отметить игру пройденной" style="display: none;">⭐ Завершить игру</button>
           <button class="modal-tool-btn" id="sound-toggle-btn" title="Включить / выключить звук" aria-label="Звук">🔊</button>
           <button class="modal-close" id="modal-close" aria-label="Закрыть">✕</button>
@@ -775,7 +775,7 @@
           allowfullscreen="true"
           webkitallowfullscreen="true"
           mozallowfullscreen="true"
-          loading="lazy"
+          allow="autoplay; fullscreen; clipboard-write; encrypted-media"
         ></iframe>
 
         <!-- Баннер победы при прохождении игры -->
@@ -852,7 +852,7 @@
   <div id="print-area" class="print-area"></div>
 
   <!-- ===== ДАННЫЕ И СКРИПТЫ ===== -->
-  <script src="parents-data.js?v=2.9"></script>
-  <script src="script.js?v=2.9"></script>
+  <script src="parents-data.js?v=3.0"></script>
+  <script src="script.js?v=3.0"></script>
 </body>
 </html>
