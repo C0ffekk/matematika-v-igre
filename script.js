@@ -6,7 +6,7 @@
 
 'use strict';
 
-// ===== КОНФИГУРАЦИЯ ИГР (Всего 25) =====
+// ===== КОНФИГУРАЦИЯ ИГР (Всего 28) =====
 const GAMES = {
   kolichestvo: [
     {
@@ -664,6 +664,7 @@ function renderVictoryView(gameId, feedbackMsg) {
 // 3. ОТКРЫТИЕ И ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА
 // ============================================
 let isCurrentGameSolved = false;
+let currentGameStartTime = 0;
 let gameManualCheckTimer = null;
 
 // Слушаем сообщения об успешном прохождении от LearningApps (postMessage)
@@ -671,15 +672,36 @@ window.addEventListener('message', (event) => {
   if (typeof event.data !== 'string') return;
   const data = event.data;
 
-  // LearningApps отправляет AppSolved или AppCompleted при правильном выполнении
-  if (
-    data.startsWith('AppSolved') ||
-    data.startsWith('AppCompleted') ||
-    data.includes('AppSolved') ||
-    data.includes('AppCompleted')
-  ) {
-    onGameSolvedSuccess();
+  // Реагируем СТРОГО на AppSolved.
+  // ВНИМАНИЕ: AppCompleted намеренно НЕ используется!
+  // В шаблонах LearningApps (например, шаблон 70 "Простой порядок" — "Расставь матрёшек", "Башни",
+  // "Времена года: Волшебное дерево", а также в шаблоне 86 "Классификация") событие AppCompleted
+  // отправляется сразу при открытии игры, первой расстановке или первом касании карточки!
+  // Только событие AppSolved отправляется исключительно тогда, когда задача действительно РЕШЕНА ВЕРНО (solutionOk === true).
+  if (!data.startsWith('AppSolved|') && !data.includes('AppSolved|')) return;
+
+  // Если модальное окно не открыто или открыта нативная игра — игнорируем
+  if (!overlay || !overlay.classList.contains('open')) return;
+  if (!gameIframe || gameIframe.style.display === 'none' || !gameIframe.src) return;
+
+  // Извлекаем ID решённой игры из сообщения: AppSolved|<appId>|...
+  const match = data.match(/AppSolved\|([a-zA-Z0-9]+)/);
+  const solvedAppId = match ? match[1] : null;
+
+  // Проверяем, что полученное сообщение относится именно к текущей открытой игре
+  if (solvedAppId && !gameIframe.src.includes(solvedAppId)) {
+    console.warn('Игнорируем AppSolved от сторонней/предыдущей игры:', solvedAppId);
+    return;
   }
+
+  // Защита от моментальных ложных срабатываний:
+  // ребёнок не может решить интерактивное задание менее чем за 3 секунды
+  if (Date.now() - currentGameStartTime < 3000) {
+    console.warn('Слишком быстрое событие (< 3 сек), игнорируем ложный сигнал');
+    return;
+  }
+
+  onGameSolvedSuccess();
 });
 
 function onGameSolvedSuccess() {
@@ -716,6 +738,7 @@ function openGame(url, title, gameId) {
 
   // При открытии игры кнопка завершения ВСЕГДА СКРЫТА!
   isCurrentGameSolved = false;
+  currentGameStartTime = Date.now();
   if (modalFinishBtn) {
     modalFinishBtn.style.display = 'none';
     modalFinishBtn.classList.remove('pulse-anim');
@@ -761,13 +784,13 @@ function openGame(url, title, gameId) {
     gameIframe.src = url;
 
     // Кнопка завершения появится автоматически после проверки в LearningApps.
-    // На случай, если ребёнок решил верно, но не нажал синюю кнопку в игре,
-    // через 25 секунд появится деликатная подсказка «Я всё выполнил ✓».
+    // На случай, если ребёнок решил верно, но проверка не сработала по сети,
+    // через 35 секунд появится деликатная кнопка «Я всё выполнил ✓».
     gameManualCheckTimer = setTimeout(() => {
       if (!isCurrentGameSolved && modalManualCheckBtn) {
         modalManualCheckBtn.style.display = 'inline-flex';
       }
-    }, 25000);
+    }, 35000);
   }
 
   overlay.classList.add('open');
@@ -777,17 +800,19 @@ function openGame(url, title, gameId) {
 function closeModal() {
   overlay.classList.remove('open');
   document.body.style.overflow = '';
+  isCurrentGameSolved = false;
   if (gameManualCheckTimer) {
     clearTimeout(gameManualCheckTimer);
     gameManualCheckTimer = null;
   }
+  if (modalFinishBtn) modalFinishBtn.style.display = 'none';
+  if (modalSolvedBanner) modalSolvedBanner.style.display = 'none';
+  if (modalManualCheckBtn) modalManualCheckBtn.style.display = 'none';
+
   setTimeout(() => {
     gameIframe.src = '';
     if (nativeGameContainer) nativeGameContainer.innerHTML = '';
-    if (modalFinishBtn) modalFinishBtn.style.display = 'none';
-    if (modalSolvedBanner) modalSolvedBanner.style.display = 'none';
-    if (modalManualCheckBtn) modalManualCheckBtn.style.display = 'none';
-    isCurrentGameSolved = false;
+    currentGameId = null;
   }, 300);
 }
 
