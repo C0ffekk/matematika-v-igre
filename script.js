@@ -143,6 +143,9 @@ const modalGameIcon       = document.getElementById('modal-game-icon');
 const modalClose          = document.getElementById('modal-close');
 const soundToggleBtn      = document.getElementById('sound-toggle-btn');
 const modalFinishBtn      = document.getElementById('modal-finish-game-btn');
+const modalManualCheckBtn = document.getElementById('modal-manual-check-btn');
+const modalSolvedBanner   = document.getElementById('modal-solved-banner');
+const modalSolvedBtn      = document.getElementById('modal-solved-btn');
 const nativeGameContainer = document.getElementById('native-game-container');
 const toast               = document.getElementById('toast');
 const navBtns             = document.querySelectorAll('.nav-btn');
@@ -660,8 +663,73 @@ function renderVictoryView(gameId, feedbackMsg) {
 // ============================================
 // 3. ОТКРЫТИЕ И ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА
 // ============================================
+let isCurrentGameSolved = false;
+let gameManualCheckTimer = null;
+
+// Слушаем сообщения об успешном прохождении от LearningApps (postMessage)
+window.addEventListener('message', (event) => {
+  if (typeof event.data !== 'string') return;
+  const data = event.data;
+
+  // LearningApps отправляет AppSolved или AppCompleted при правильном выполнении
+  if (
+    data.startsWith('AppSolved') ||
+    data.startsWith('AppCompleted') ||
+    data.includes('AppSolved') ||
+    data.includes('AppCompleted')
+  ) {
+    onGameSolvedSuccess();
+  }
+});
+
+function onGameSolvedSuccess() {
+  if (isCurrentGameSolved) return;
+  isCurrentGameSolved = true;
+
+  if (gameManualCheckTimer) {
+    clearTimeout(gameManualCheckTimer);
+    gameManualCheckTimer = null;
+  }
+  if (modalManualCheckBtn) {
+    modalManualCheckBtn.style.display = 'none';
+  }
+
+  // Кнопка появляется ТОЛЬКО ТЕПЕРЬ — строго после успешного решения!
+  if (modalFinishBtn) {
+    modalFinishBtn.style.display = 'inline-flex';
+    modalFinishBtn.classList.add('pulse-anim');
+    modalFinishBtn.textContent = '⭐ Завершить игру!';
+  }
+
+  // Праздничный баннер внизу модального окна
+  if (modalSolvedBanner) {
+    modalSolvedBanner.style.display = 'block';
+  }
+
+  SoundEffects.victory();
+  launchConfetti();
+  showToast('🎉 Задание выполнено верно! Нажми «Завершить игру», чтобы забрать звезду ⭐');
+}
+
 function openGame(url, title, gameId) {
   modalTitle.textContent = title;
+
+  // При открытии игры кнопка завершения ВСЕГДА СКРЫТА!
+  isCurrentGameSolved = false;
+  if (modalFinishBtn) {
+    modalFinishBtn.style.display = 'none';
+    modalFinishBtn.classList.remove('pulse-anim');
+  }
+  if (modalSolvedBanner) {
+    modalSolvedBanner.style.display = 'none';
+  }
+  if (modalManualCheckBtn) {
+    modalManualCheckBtn.style.display = 'none';
+  }
+  if (gameManualCheckTimer) {
+    clearTimeout(gameManualCheckTimer);
+    gameManualCheckTimer = null;
+  }
 
   const card = document.querySelector(`.game-card[data-game-id="${gameId}"]`);
   const emoji = card?.querySelector('.game-emoji')?.textContent || '🎯';
@@ -676,7 +744,6 @@ function openGame(url, title, gameId) {
     gameIframe.style.display = 'none';
     gameIframe.src = '';
     nativeGameContainer.style.display = 'flex';
-    if (modalFinishBtn) modalFinishBtn.style.display = 'none';
     startNativeGame1();
   } else if (isGame2) {
     currentGameId = 'kolichestvo_1';
@@ -684,7 +751,6 @@ function openGame(url, title, gameId) {
     gameIframe.style.display = 'none';
     gameIframe.src = '';
     nativeGameContainer.style.display = 'flex';
-    if (modalFinishBtn) modalFinishBtn.style.display = 'none';
     startNativeGame2();
   } else {
     currentGameId = gameId;
@@ -694,16 +760,14 @@ function openGame(url, title, gameId) {
     gameIframe.style.display = 'block';
     gameIframe.src = url;
 
-    if (modalFinishBtn) {
-      modalFinishBtn.style.display = 'inline-flex';
-      if (completedGames.has(gameId)) {
-        modalFinishBtn.textContent = '✓ Пройдено (+1 ⭐)';
-        modalFinishBtn.classList.add('already-done');
-      } else {
-        modalFinishBtn.textContent = '⭐ Завершить игру';
-        modalFinishBtn.classList.remove('already-done');
+    // Кнопка завершения появится автоматически после проверки в LearningApps.
+    // На случай, если ребёнок решил верно, но не нажал синюю кнопку в игре,
+    // через 25 секунд появится деликатная подсказка «Я всё выполнил ✓».
+    gameManualCheckTimer = setTimeout(() => {
+      if (!isCurrentGameSolved && modalManualCheckBtn) {
+        modalManualCheckBtn.style.display = 'inline-flex';
       }
-    }
+    }, 25000);
   }
 
   overlay.classList.add('open');
@@ -713,35 +777,55 @@ function openGame(url, title, gameId) {
 function closeModal() {
   overlay.classList.remove('open');
   document.body.style.overflow = '';
+  if (gameManualCheckTimer) {
+    clearTimeout(gameManualCheckTimer);
+    gameManualCheckTimer = null;
+  }
   setTimeout(() => {
     gameIframe.src = '';
     if (nativeGameContainer) nativeGameContainer.innerHTML = '';
+    if (modalFinishBtn) modalFinishBtn.style.display = 'none';
+    if (modalSolvedBanner) modalSolvedBanner.style.display = 'none';
+    if (modalManualCheckBtn) modalManualCheckBtn.style.display = 'none';
+    isCurrentGameSolved = false;
   }, 300);
 }
 
-// Кнопка подтверждения прохождения для сторонних игр (LearningApps)
+// Завершение игры и начисление звезды
+function handleCompleteGame() {
+  if (!currentGameId) return;
+  const wasAlreadyDone = completedGames.has(currentGameId);
+  completedGames.add(currentGameId);
+  try {
+    localStorage.setItem(STORAGE_COMPLETED_KEY, JSON.stringify([...completedGames]));
+  } catch (e) {}
+
+  updateProgressUI();
+  SoundEffects.victory();
+  launchConfetti();
+  closeModal();
+  showToast(`🎉 Молодец! Задание «${modalTitle.textContent}» пройдено! ⭐`);
+
+  if (completedGames.size === TOTAL_GAMES && !wasAlreadyDone) {
+    setTimeout(() => {
+      openDiplomaModal();
+      launchConfetti();
+      showToast('🏆 УРА! Все игры пройдены! Твой диплом готов!');
+    }, 1200);
+  }
+}
+
 if (modalFinishBtn) {
-  modalFinishBtn.addEventListener('click', () => {
-    if (!currentGameId) return;
-    const wasAlreadyDone = completedGames.has(currentGameId);
-    completedGames.add(currentGameId);
-    try {
-      localStorage.setItem(STORAGE_COMPLETED_KEY, JSON.stringify([...completedGames]));
-    } catch (e) {}
+  modalFinishBtn.addEventListener('click', handleCompleteGame);
+}
 
-    updateProgressUI();
-    SoundEffects.victory();
-    launchConfetti();
-    closeModal();
-    showToast(`🎉 Молодец! Задание «${modalTitle.textContent}» пройдено! ⭐`);
+if (modalSolvedBtn) {
+  modalSolvedBtn.addEventListener('click', handleCompleteGame);
+}
 
-    if (completedGames.size === TOTAL_GAMES && !wasAlreadyDone) {
-      setTimeout(() => {
-        openDiplomaModal();
-        launchConfetti();
-        showToast('🏆 УРА! Все игры пройдены! Твой диплом готов!');
-      }, 1200);
-    }
+if (modalManualCheckBtn) {
+  modalManualCheckBtn.addEventListener('click', () => {
+    onGameSolvedSuccess();
   });
 }
 

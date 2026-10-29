@@ -1071,6 +1071,27 @@ body {
   gap: 10px;
 }
 
+.modal-manual-check-btn {
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  border: 1px dashed rgba(255, 255, 255, 0.45);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.modal-manual-check-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-style: solid;
+}
+
 .modal-finish-game-btn {
   background: linear-gradient(135deg, #10B981, #059669);
   color: #FFFFFF;
@@ -1096,11 +1117,74 @@ body {
 .modal-finish-game-btn:active {
   transform: scale(0.96);
 }
+.modal-finish-game-btn.pulse-anim {
+  animation: pulseFinishBtn 1.8s infinite;
+}
 .modal-finish-game-btn.already-done {
   background: rgba(255, 255, 255, 0.22);
   color: #FFFFFF;
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: none;
+}
+
+/* Баннер победы внизу модального окна */
+.modal-solved-banner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.96), rgba(5, 150, 105, 0.96));
+  backdrop-filter: blur(8px);
+  padding: 14px 22px;
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+  animation: slideUpSolved 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUpSolved {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.modal-solved-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.modal-solved-badge {
+  color: #FFFFFF;
+  font-family: 'Baloo 2', 'Nunito', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-solved-btn {
+  background: #FFFFFF;
+  color: #047857;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 0.96rem;
+  padding: 9px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  animation: pulseFinishBtn 1.8s infinite;
+  white-space: nowrap;
+}
+
+.modal-solved-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  background: #F0FDF4;
 }
 
 .modal-tool-btn {
@@ -1923,6 +2007,10 @@ body {
   .play-btn { font-size: 0.95rem; padding: 11px; }
   .modal-finish-game-btn { font-size: 0.8rem; padding: 5px 10px; }
   .modal-title { font-size: 1rem; }
+  .modal-solved-inner { flex-direction: column; text-align: center; gap: 8px; }
+  .modal-solved-badge { font-size: 0.95rem; }
+  .modal-solved-btn { font-size: 0.88rem; padding: 8px 16px; width: 100%; }
+  .modal-manual-check-btn { font-size: 0.75rem; padding: 4px 8px; }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
