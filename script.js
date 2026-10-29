@@ -6,7 +6,7 @@
 
 'use strict';
 
-// ===== КОНФИГУРАЦИЯ ИГР (Всего 19) =====
+// ===== КОНФИГУРАЦИЯ ИГР (Всего 22) =====
 const GAMES = {
   kolichestvo: [
     {
@@ -38,6 +38,18 @@ const GAMES = {
     {
       title: "Расставь матрёшек по высоте",
       url: "https://learningapps.org/watch?v=pw3ew7h0j26"
+    },
+    {
+      title: "Какого размера животное?",
+      url: "https://learningapps.org/watch?v=pvwjmd88n26"
+    },
+    {
+      title: "Три медведя",
+      url: "https://learningapps.org/watch?v=p0w7p8bz326"
+    },
+    {
+      title: "Животные: от меньшего к большему",
+      url: "https://learningapps.org/watch?v=ph1pgkqo326"
     }
   ],
   vremya: [
@@ -62,7 +74,7 @@ const GAMES = {
   ]
 };
 
-let TOTAL_GAMES = 19;
+let TOTAL_GAMES = 22;
 const STORAGE_COMPLETED_KEY = 'matematika_completed_games_v1';
 const STORAGE_NAME_KEY      = 'matematika_child_name_v1';
 
