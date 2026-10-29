@@ -6,20 +6,32 @@
 
 'use strict';
 
-// ===== КОНФИГУРАЦИЯ ИГР (Всего 28) =====
+// ===== КОНФИГУРАЦИЯ ИГР (Всего 31) =====
 const GAMES = {
   kolichestvo: [
     {
-      title: "Весёлый счёт",
-      url: "native_game1"
+      title: "Сосчитай до 10",
+      url: "https://learningapps.org/watch?v=pe9276i2c26"
     },
     {
       title: "Найди соседей чисел",
-      url: "native_game2"
+      url: "https://learningapps.org/watch?v=pwjyr0byc26"
     },
     {
-      title: "Считалочка",
-      url: null
+      title: "Больше, меньше или равно?",
+      url: "https://learningapps.org/watch?v=pymgqfkz226"
+    },
+    {
+      title: "Соотнеси количество предметов с цифрой",
+      url: "https://learningapps.org/watch?v=p94k7pdnv26"
+    },
+    {
+      title: "Посчитай-ка",
+      url: "https://learningapps.org/watch?v=ptowczxk526"
+    },
+    {
+      title: "Счёт предметов",
+      url: "https://learningapps.org/watch?v=pq42949rn26"
     }
   ],
   velichina: [
@@ -116,7 +128,7 @@ const GAMES = {
   ]
 };
 
-let TOTAL_GAMES = 28;
+let TOTAL_GAMES = 31;
 const STORAGE_COMPLETED_KEY = 'matematika_completed_games_v1';
 const STORAGE_NAME_KEY      = 'matematika_child_name_v1';
 
@@ -749,8 +761,8 @@ function openGame(url, title, gameId) {
   const emoji = card?.querySelector('.game-emoji')?.textContent || '🎯';
   if (modalGameIcon) modalGameIcon.textContent = emoji;
 
-  const isGame1 = (gameId === 'kolichestvo_0' || url === 'native_game1' || (title && title.includes('Весёлый счёт')));
-  const isGame2 = (gameId === 'kolichestvo_1' || url === 'native_game2' || (title && title.includes('Найди соседей')));
+  const isGame1 = (url === 'native_game1');
+  const isGame2 = (url === 'native_game2');
 
   if (isGame1) {
     currentGameId = 'kolichestvo_0';
