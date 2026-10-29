@@ -160,6 +160,18 @@ const modalSolvedBanner   = document.getElementById('modal-solved-banner');
 const modalSolvedBtn      = document.getElementById('modal-solved-btn');
 const nativeGameContainer = document.getElementById('native-game-container');
 const toast               = document.getElementById('toast');
+
+// Всплывающие уведомления (Toast)
+let toastTimer = null;
+function showToast(message, duration = 3000) {
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, duration);
+}
 const navBtns             = document.querySelectorAll('.nav-btn');
 const navBar              = document.getElementById('nav-bar');
 
@@ -844,10 +856,11 @@ if (modalSolvedBtn) {
 
 if (modalCheckSolutionBtn) {
   modalCheckSolutionBtn.addEventListener('click', () => {
+    SoundEffects.click();
     if (gameIframe && gameIframe.contentWindow) {
       gameIframe.contentWindow.postMessage('checkSolution', '*');
-      SoundEffects.click();
     }
+    showToast('💡 Для проверки нажми синюю круглую кнопку ✓ в углу самой игры!');
   });
 }
 
@@ -1279,6 +1292,20 @@ function initParentsFolder() {
   const emptySearch = document.getElementById('parents-empty-search');
 
   if (!container || typeof PARENTS_CONSULTATIONS === 'undefined') return;
+
+  // Динамическое обновление счётчиков в кнопках категорий
+  const catCounts = { all: PARENTS_CONSULTATIONS.length };
+  PARENTS_CONSULTATIONS.forEach(c => {
+    catCounts[c.category] = (catCounts[c.category] || 0) + 1;
+  });
+  tabs.forEach(tab => {
+    const cat = tab.dataset.cat || 'all';
+    const count = catCounts[cat] || 0;
+    const match = tab.textContent.match(/^(.*?)\s*\(\d+\)$/);
+    if (match) {
+      tab.textContent = `${match[1]} (${count})`;
+    }
+  });
 
   let currentCategory = 'all';
   let searchQuery = '';
