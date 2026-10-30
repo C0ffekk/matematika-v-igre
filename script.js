@@ -150,221 +150,40 @@ const GAMES = {
 };
 
 let TOTAL_GAMES = 34;
-const STORAGE_COMPLETED_KEY      = 'matematika_completed_games_v1';
-const STORAGE_NAME_KEY           = 'matematika_child_name_v1';
-const STORAGE_PROFILES_KEY       = 'matematika_profiles_list_v2';
-const STORAGE_ACTIVE_PROFILE_KEY = 'matematika_active_profile_v2';
+const STORAGE_COMPLETED_KEY = 'matematika_completed_games_v1';
+const STORAGE_NAME_KEY      = 'matematika_child_name_v1';
 
-// ===== СОСТОЯНИЕ ПРОФИЛЕЙ И ИГР =====
-let profiles        = [];
-let activeProfileId = null;
-let completedGames  = new Set();
-let currentGameId   = null;
+// ===== СОСТОЯНИЕ =====
+let completedGames = new Set();
+let currentGameId  = null;
 
-// ===== DOM ЭЛЕМЕНТЫ ПРОФИЛЕЙ =====
-const profileSelect    = document.getElementById('profile-select');
-const addProfileBtn    = document.getElementById('add-profile-btn');
-const deleteProfileBtn = document.getElementById('delete-profile-btn');
-const resetProfileBtn  = document.getElementById('reset-profile-btn');
-
-// ===== МЕНЕДЖЕР ПРОФИЛЕЙ ДЕТЕЙ =====
-function getProfileStorageKey(profileId) {
-  return `matematika_profile_progress_${profileId}`;
+// Загрузка сохранённого прогресса
+try {
+  const saved = localStorage.getItem(STORAGE_COMPLETED_KEY);
+  if (saved) {
+    completedGames = new Set(JSON.parse(saved));
+  }
+} catch (e) {
+  console.warn('LocalStorage error:', e);
 }
 
-function initProfiles() {
-  try {
-    const savedProfiles = localStorage.getItem(STORAGE_PROFILES_KEY);
-    if (savedProfiles) {
-      profiles = JSON.parse(savedProfiles);
-    }
-  } catch (e) {
-    profiles = [];
-  }
-
-  // Если список пустой — мигрируем старое сохранённое имя или создаём Сашу по умолчанию
-  if (!Array.isArray(profiles) || profiles.length === 0) {
-    let initialName = 'Саша';
-    try {
-      const legacyName = localStorage.getItem(STORAGE_NAME_KEY);
-      if (legacyName && legacyName.trim()) {
-        initialName = legacyName.trim();
-      }
-    } catch (e) {}
-
-    profiles = [{ id: 'child_1', name: initialName }];
-    try {
-      localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-    } catch (e) {}
-  }
-
-  // Активный выбранный профиль
-  try {
-    activeProfileId = localStorage.getItem(STORAGE_ACTIVE_PROFILE_KEY);
-  } catch (e) {}
-
-  if (!activeProfileId || !profiles.some(p => p.id === activeProfileId)) {
-    activeProfileId = profiles[0].id;
-    try {
-      localStorage.setItem(STORAGE_ACTIVE_PROFILE_KEY, activeProfileId);
-    } catch (e) {}
-  }
-
-  // Однократная миграция старого прогресса в первый профиль при инициализации
-  const firstProfileKey = getProfileStorageKey(profiles[0].id);
-  if (localStorage.getItem(firstProfileKey) === null) {
-    try {
-      const legacy = localStorage.getItem(STORAGE_COMPLETED_KEY);
-      if (legacy) {
-        localStorage.setItem(firstProfileKey, legacy);
-      } else {
-        localStorage.setItem(firstProfileKey, JSON.stringify([]));
-      }
-    } catch (e) {}
-  }
-
-  loadActiveProfileProgress();
-  renderProfilesUI();
-  setupProfilesEvents();
-}
-
-function loadActiveProfileProgress() {
-  completedGames.clear();
-  if (!activeProfileId) return;
-
-  try {
-    const profileKey = getProfileStorageKey(activeProfileId);
-    const saved = localStorage.getItem(profileKey);
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed)) {
-        completedGames = new Set(parsed);
-      }
-    }
-  } catch (e) {
-    console.warn('Ошибка загрузки прогресса профиля:', e);
-  }
-
-  // Синхронизируем имя в поле ввода диплома
-  const active = profiles.find(p => p.id === activeProfileId);
-  if (active && childNameInput) {
-    childNameInput.value = active.name;
-    try {
-      localStorage.setItem(STORAGE_NAME_KEY, active.name);
-    } catch (e) {}
-  }
-
-  // Зеркалируем в STORAGE_COMPLETED_KEY для обратной совместимости
+function saveProgress() {
   try {
     localStorage.setItem(STORAGE_COMPLETED_KEY, JSON.stringify([...completedGames]));
   } catch (e) {}
 }
 
-function saveActiveProfileProgress() {
-  if (!activeProfileId) return;
-  const arr = [...completedGames];
-  try {
-    localStorage.setItem(getProfileStorageKey(activeProfileId), JSON.stringify(arr));
-    localStorage.setItem(STORAGE_COMPLETED_KEY, JSON.stringify(arr));
-  } catch (e) {
-    console.warn('Ошибка сохранения прогресса профиля:', e);
-  }
-}
-
-function renderProfilesUI() {
-  if (!profileSelect) return;
-  profileSelect.innerHTML = '';
-  profiles.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p.id;
-    opt.textContent = p.name;
-    if (p.id === activeProfileId) {
-      opt.selected = true;
+// Кнопка сброса прогресса на телефоне/планшете
+const resetProgressBtn = document.getElementById('reset-progress-btn');
+if (resetProgressBtn) {
+  resetProgressBtn.addEventListener('click', () => {
+    if (confirm('Сбросить весь прогресс и звёздочки на этом устройстве, чтобы пройти игры заново?')) {
+      completedGames.clear();
+      saveProgress();
+      updateProgressUI();
+      showToast('↻ Прогресс сброшен. Можно играть заново!');
     }
-    profileSelect.appendChild(opt);
   });
-}
-
-function setupProfilesEvents() {
-  if (profileSelect && !profileSelect.dataset.eventsBound) {
-    profileSelect.dataset.eventsBound = 'true';
-    profileSelect.addEventListener('change', (e) => {
-      const newId = e.target.value;
-      if (newId === activeProfileId) return;
-      activeProfileId = newId;
-      try {
-        localStorage.setItem(STORAGE_ACTIVE_PROFILE_KEY, activeProfileId);
-      } catch (e) {}
-      loadActiveProfileProgress();
-      updateProgressUI();
-      const current = profiles.find(p => p.id === activeProfileId);
-      if (current) {
-        showToast(`👤 Выбран ребёнок: ${current.name}`);
-      }
-    });
-  }
-
-  if (addProfileBtn && !addProfileBtn.dataset.eventsBound) {
-    addProfileBtn.dataset.eventsBound = 'true';
-    addProfileBtn.addEventListener('click', () => {
-      const name = prompt('Введите имя нового ребёнка (например, Маша, Артём, София):');
-      if (!name || !name.trim()) return;
-      const cleanName = name.trim();
-      const newId = 'child_' + Date.now();
-      profiles.push({ id: newId, name: cleanName });
-      activeProfileId = newId;
-      try {
-        localStorage.setItem(getProfileStorageKey(newId), JSON.stringify([]));
-        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-        localStorage.setItem(STORAGE_ACTIVE_PROFILE_KEY, activeProfileId);
-      } catch (e) {}
-      loadActiveProfileProgress();
-      renderProfilesUI();
-      updateProgressUI();
-      showToast(`✨ Добавлен ребёнок: ${cleanName}! Можно собирать звёздочки!`);
-    });
-  }
-
-  if (deleteProfileBtn && !deleteProfileBtn.dataset.eventsBound) {
-    deleteProfileBtn.dataset.eventsBound = 'true';
-    deleteProfileBtn.addEventListener('click', () => {
-      if (profiles.length <= 1) {
-        showToast('⚠️ Нельзя удалить единственный профиль. Добавьте другой или измените имя!');
-        return;
-      }
-      const current = profiles.find(p => p.id === activeProfileId);
-      const name = current ? current.name : 'этого ребёнка';
-      if (confirm(`Удалить профиль ребёнка «${name}» и все его звёздочки?`)) {
-        try {
-          localStorage.removeItem(getProfileStorageKey(activeProfileId));
-        } catch (e) {}
-        profiles = profiles.filter(p => p.id !== activeProfileId);
-        activeProfileId = profiles[0].id;
-        try {
-          localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-          localStorage.setItem(STORAGE_ACTIVE_PROFILE_KEY, activeProfileId);
-        } catch (e) {}
-        loadActiveProfileProgress();
-        renderProfilesUI();
-        updateProgressUI();
-        showToast(`🗑️ Профиль «${name}» удалён.`);
-      }
-    });
-  }
-
-  if (resetProfileBtn && !resetProfileBtn.dataset.eventsBound) {
-    resetProfileBtn.dataset.eventsBound = 'true';
-    resetProfileBtn.addEventListener('click', () => {
-      const current = profiles.find(p => p.id === activeProfileId);
-      const name = current ? current.name : 'ребёнка';
-      if (confirm(`Сбросить прогресс и звёздочки для «${name}», чтобы пройти игры заново?`)) {
-        completedGames.clear();
-        saveActiveProfileProgress();
-        updateProgressUI();
-        showToast(`↻ Прогресс для ${name} сброшен. Можно играть заново!`);
-      }
-    });
-  }
 }
 
 // ===== DOM ЭЛЕМЕНТЫ МОДАЛЬНОГО ОКНА ИГРЫ =====
@@ -876,7 +695,7 @@ function renderVictoryView(gameId, feedbackMsg) {
   if (finishBtn) {
     finishBtn.addEventListener('click', () => {
       completedGames.add(gameId);
-      saveActiveProfileProgress();
+      saveProgress();
 
       updateProgressUI();
       launchConfetti();
@@ -1037,7 +856,7 @@ function handleCompleteGame() {
   if (!currentGameId) return;
   const wasAlreadyDone = completedGames.has(currentGameId);
   completedGames.add(currentGameId);
-  saveActiveProfileProgress();
+  saveProgress();
 
   updateProgressUI();
   SoundEffects.victory();
@@ -1302,8 +1121,7 @@ function drawDiploma(childName) {
 }
 
 function openDiplomaModal(isCelebration = false) {
-  const active = profiles.find(p => p.id === activeProfileId);
-  const name = childNameInput?.value || active?.name || 'Юный математик';
+  const name = childNameInput?.value || localStorage.getItem(STORAGE_NAME_KEY) || 'Юный математик';
   drawDiploma(name);
 
   diplomaOverlay.classList.add('open');
@@ -1347,16 +1165,6 @@ if (updateDiplomaBtn && childNameInput) {
     try {
       localStorage.setItem(STORAGE_NAME_KEY, val);
     } catch (e) {}
-
-    // Обновляем также имя в активном профиле ребёнка
-    const active = profiles.find(p => p.id === activeProfileId);
-    if (active) {
-      active.name = val;
-      try {
-        localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profiles));
-      } catch (e) {}
-      renderProfilesUI();
-    }
 
     drawDiploma(val);
     showToast('✨ Имя в дипломе обновлено!');
@@ -1662,7 +1470,6 @@ function printConsultation(id) {
 // 8. СТАРТ
 // ============================================
 function initAll() {
-  initProfiles();
   initCards();
   initParentsFolder();
 }

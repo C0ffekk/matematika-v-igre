@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎲</text></svg>" />
-  <link rel="stylesheet" href="style.css?v=3.6" />
+  <link rel="stylesheet" href="style.css?v=3.7" />
 </head>
 <body>
 
@@ -101,27 +101,6 @@
   <section class="progress-section">
     <div class="container">
       <div class="progress-card">
-        <!-- Панель выбора профиля ребёнка -->
-        <div class="profile-bar">
-          <div class="profile-left">
-            <span class="profile-label">👤 Ребёнок:</span>
-            <div class="profile-select-wrap">
-              <select id="profile-select" class="profile-select" aria-label="Выбрать профиль ребёнка"></select>
-            </div>
-            <button class="profile-btn add-btn" id="add-profile-btn" title="Добавить нового ребёнка в группу">
-              <span>➕</span> Добавить
-            </button>
-            <button class="profile-btn del-btn" id="delete-profile-btn" title="Удалить выбранный профиль">
-              <span>🗑️</span>
-            </button>
-          </div>
-          <div class="profile-right">
-            <button class="profile-btn reset-btn" id="reset-profile-btn" title="Сбросить звёзды выбранного ребёнка, чтобы пройти игры заново">
-              <span>↻</span> Начать сначала
-            </button>
-          </div>
-        </div>
-
         <div class="progress-info">
           <div class="progress-title-wrap">
             <span class="progress-badge-icon">⭐</span>
@@ -140,6 +119,9 @@
         <div class="progress-footer">
           <span class="progress-hint" id="progress-hint">🎯 Проходи игры по очереди, чтобы заполнить шкалу и открыть диплом!</span>
           <div class="progress-footer-right">
+            <button class="reset-progress-btn" id="reset-progress-btn" title="Сбросить прогресс и пройти заново">
+              ↻ Начать заново
+            </button>
             <button class="diploma-btn locked" id="open-diploma-btn">
               <span>🔒</span> Диплом (0/34)
             </button>
@@ -969,7 +951,7 @@
   <div id="print-area" class="print-area"></div>
 
   <!-- ===== ДАННЫЕ И СКРИПТЫ ===== -->
-  <script src="parents-data.js?v=3.6"></script>
-  <script src="script.js?v=3.6"></script>
+  <script src="parents-data.js?v=3.7"></script>
+  <script src="script.js?v=3.7"></script>
 </body>
 </html>
