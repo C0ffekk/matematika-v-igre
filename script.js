@@ -91,9 +91,54 @@ const GAMES = {
     }
   ],
   prostranstvo: [
-    { title: "Верх и низ",       url: null },
-    { title: "Лево — право",     url: null },
-    { title: "Найди по карте",   url: null }
+    {
+      title: "Ориентация в схеме тела",
+      url: "https://learningapps.org/watch?v=pyuwf8ch326"
+    },
+    {
+      title: "Налево — направо: рыбки",
+      url: "https://learningapps.org/watch?v=puz90spha26"
+    },
+    {
+      title: "Кто смотрит налево, а кто направо?",
+      url: "https://learningapps.org/watch?v=psi08kse326"
+    },
+    {
+      title: "Где находится? (Предлоги)",
+      url: "https://learningapps.org/watch?v=ppf7h1n3n26"
+    },
+    {
+      title: "Игрушки на полочке",
+      url: "https://learningapps.org/watch?v=pdkzk4vqc26"
+    },
+    {
+      title: "Предметы в комнате",
+      url: "https://learningapps.org/watch?v=pgkbg5a1v26"
+    },
+    {
+      title: "Гномики возле грибочка",
+      url: "https://learningapps.org/watch?v=pr4a5uhkt26"
+    },
+    {
+      title: "Где спрятался щенок?",
+      url: "https://learningapps.org/watch?v=pr7vt6bz526"
+    },
+    {
+      title: "Ориентировка на листе бумаги",
+      url: "https://learningapps.org/watch?v=pmiaun0r526"
+    },
+    {
+      title: "Знатоки схемы тела",
+      url: "https://learningapps.org/watch?v=pj1powt3c26"
+    },
+    {
+      title: "Карта на листе",
+      url: "https://learningapps.org/watch?v=pq58psf2n26"
+    },
+    {
+      title: "Кот Матроскин: правое и левое",
+      url: "https://learningapps.org/watch?v=pv0bn4o2526"
+    }
   ],
   logika: [
     {
@@ -149,7 +194,7 @@ const GAMES = {
   ]
 };
 
-let TOTAL_GAMES = 34;
+let TOTAL_GAMES = 43;
 const STORAGE_COMPLETED_KEY = 'matematika_completed_games_v1';
 const STORAGE_NAME_KEY      = 'matematika_child_name_v1';
 
