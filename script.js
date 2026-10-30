@@ -49,7 +49,7 @@ const GAMES = {
     },
     {
       title: "Расставь матрёшек по высоте",
-      url: "https://learningapps.org/watch?v=pw3ew7h0j26"
+      url: "https://learningapps.org/watch?v=pw17eoiac26"
     },
     {
       title: "Какого размера животное?",
@@ -67,7 +67,7 @@ const GAMES = {
   vremya: [
     {
       title: "Время суток: помоги Солнышку",
-      url: "https://learningapps.org/watch?v=pup19qkmc26"
+      url: "https://learningapps.org/watch?v=pxfr6e9jt26"
     },
     {
       title: "Части суток: найди пару",
@@ -75,7 +75,7 @@ const GAMES = {
     },
     {
       title: "Каждому времени суток свои дела",
-      url: "https://learningapps.org/watch?v=p7qsqsw2326"
+      url: "https://learningapps.org/watch?v=pum3zn77t26"
     },
     {
       title: "Время года",
@@ -83,7 +83,7 @@ const GAMES = {
     },
     {
       title: "Времена года: Волшебное дерево",
-      url: "https://learningapps.org/watch?v=p5p1srhdc26"
+      url: "https://learningapps.org/watch?v=pdmu0q61a26"
     },
     {
       title: "Когда это бывает? Времена года",
@@ -119,7 +119,7 @@ const GAMES = {
     },
     {
       title: "Плоские и объёмные фигуры",
-      url: "https://learningapps.org/watch?v=pppbpumic26"
+      url: "https://learningapps.org/watch?v=ps7s457tc26"
     },
     {
       title: "Найди лишнюю фигуру",
