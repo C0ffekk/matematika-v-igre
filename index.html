@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎲</text></svg>" />
-  <link rel="stylesheet" href="style.css?v=3.4" />
+  <link rel="stylesheet" href="style.css?v=3.5" />
 </head>
 <body>
 
@@ -106,7 +106,7 @@
             <span class="progress-badge-icon">⭐</span>
             <div>
               <div class="progress-title">Твой прогресс в играх</div>
-              <div class="progress-subtitle" id="progress-subtitle">Пройдено 0 из 31 игры</div>
+              <div class="progress-subtitle" id="progress-subtitle">Пройдено 0 из 34 игр</div>
             </div>
           </div>
           <div class="progress-percent" id="progress-percent">0%</div>
@@ -120,7 +120,7 @@
           <span class="progress-hint" id="progress-hint">🎯 Проходи игры по очереди, чтобы заполнить шкалу и открыть диплом!</span>
           <div class="progress-footer-right">
             <button class="diploma-btn locked" id="open-diploma-btn">
-              <span>🔒</span> Диплом (0/31)
+              <span>🔒</span> Диплом (0/34)
             </button>
           </div>
         </div>
@@ -550,49 +550,97 @@
           </div>
         </div>
         <div class="games-grid">
-          <div class="game-card" data-iframe="PLACEHOLDER">
+          <div class="game-card" data-iframe="https://learningapps.org/watch?v=py0onxm4t26">
             <div class="game-card-top pink">
               <span class="game-number">Игра 1</span>
+              <span class="game-emoji">🌵</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Логические связи</h3>
+              <p class="game-desc">Определяем свойства предметов на ощупь: соединяем колючее с кактусом, а гладкое — с шариком</p>
+              <div class="game-skills">
+                <span class="skill-tag">Свойства предметов</span>
+                <span class="skill-tag">Логика</span>
+              </div>
+            </div>
+            <button class="play-btn pink-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="https://learningapps.org/watch?v=p5nvfwu2t26">
+            <div class="game-card-top pink">
+              <span class="game-number">Игра 2</span>
               <span class="game-emoji">🔍</span>
             </div>
             <div class="game-card-body">
-              <h3 class="game-title">Найди лишнее</h3>
-              <p class="game-desc">Выделяем группы по признакам, находим предмет, который не подходит</p>
+              <h3 class="game-title">Четвёртый лишний</h3>
+              <p class="game-desc">Находим лишний предмет среди четырёх картинок и объясняем общий признак остальных</p>
               <div class="game-skills">
+                <span class="skill-tag">Обобщение</span>
                 <span class="skill-tag">Классификация</span>
-                <span class="skill-tag">Признаки</span>
               </div>
             </div>
             <button class="play-btn pink-btn">▶ Играть</button>
           </div>
 
-          <div class="game-card" data-iframe="PLACEHOLDER">
-            <div class="game-card-top pink">
-              <span class="game-number">Игра 2</span>
-              <span class="game-emoji">🔄</span>
-            </div>
-            <div class="game-card-body">
-              <h3 class="game-title">Продолжи ряд</h3>
-              <p class="game-desc">Находим закономерность и продолжаем последовательность</p>
-              <div class="game-skills">
-                <span class="skill-tag">Закономерности</span>
-                <span class="skill-tag">Ряды</span>
-              </div>
-            </div>
-            <button class="play-btn pink-btn">▶ Играть</button>
-          </div>
-
-          <div class="game-card" data-iframe="PLACEHOLDER">
+          <div class="game-card" data-iframe="https://learningapps.org/watch?v=pfjr2xwj326">
             <div class="game-card-top pink">
               <span class="game-number">Игра 3</span>
-              <span class="game-emoji">🧪</span>
+              <span class="game-emoji">🐥</span>
             </div>
             <div class="game-card-body">
-              <h3 class="game-title">Логические задачки</h3>
-              <p class="game-desc">Решаем простые задачки на сравнение, причину и следствие</p>
+              <h3 class="game-title">Из какого гнезда цыплята?</h3>
+              <p class="game-desc">Внимательно сравниваем цвета яиц и цыплят и подбираем для каждого цыплёнка родное гнёздышко</p>
               <div class="game-skills">
+                <span class="skill-tag">Внимание</span>
+                <span class="skill-tag">Цвет и соответствие</span>
+              </div>
+            </div>
+            <button class="play-btn pink-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="https://learningapps.org/watch?v=pst3dwo5526">
+            <div class="game-card-top pink">
+              <span class="game-number">Игра 4</span>
+              <span class="game-emoji">⏳</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Что сначала, что потом</h3>
+              <p class="game-desc">Учимся выстраивать последовательность событий: гигиена, сюжетные истории и режим дня</p>
+              <div class="game-skills">
+                <span class="skill-tag">Последовательность</span>
+                <span class="skill-tag">Причина и следствие</span>
+              </div>
+            </div>
+            <button class="play-btn pink-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="https://learningapps.org/watch?v=pzu7quynj26">
+            <div class="game-card-top pink">
+              <span class="game-number">Игра 5</span>
+              <span class="game-emoji">🧩</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Продолжи ряд...</h3>
+              <p class="game-desc">Находим закономерность в чередовании предметов на полочке и выбираем следующий предмет</p>
+              <div class="game-skills">
+                <span class="skill-tag">Закономерности</span>
+                <span class="skill-tag">Логические ряды</span>
+              </div>
+            </div>
+            <button class="play-btn pink-btn">▶ Играть</button>
+          </div>
+
+          <div class="game-card" data-iframe="https://learningapps.org/watch?v=p6ri82g6a26">
+            <div class="game-card-top pink">
+              <span class="game-number">Игра 6</span>
+              <span class="game-emoji">🎯</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-title">Что лишнее?</h3>
+              <p class="game-desc">Исключаем неподходящую картинку из группы и группируем предметы по смыслу и назначению</p>
+              <div class="game-skills">
+                <span class="skill-tag">Исключение лишнего</span>
                 <span class="skill-tag">Анализ</span>
-                <span class="skill-tag">Умозаключения</span>
               </div>
             </div>
             <button class="play-btn pink-btn">▶ Играть</button>
@@ -901,7 +949,7 @@
   <div id="print-area" class="print-area"></div>
 
   <!-- ===== ДАННЫЕ И СКРИПТЫ ===== -->
-  <script src="parents-data.js?v=3.4"></script>
-  <script src="script.js?v=3.4"></script>
+  <script src="parents-data.js?v=3.5"></script>
+  <script src="script.js?v=3.5"></script>
 </body>
 </html>

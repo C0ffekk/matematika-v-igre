@@ -96,9 +96,30 @@ const GAMES = {
     { title: "Найди по карте",   url: null }
   ],
   logika: [
-    { title: "Найди лишнее",       url: null },
-    { title: "Продолжи ряд",       url: null },
-    { title: "Логические задачки", url: null }
+    {
+      title: "Логические связи",
+      url: "https://learningapps.org/watch?v=py0onxm4t26"
+    },
+    {
+      title: "Четвёртый лишний",
+      url: "https://learningapps.org/watch?v=p5nvfwu2t26"
+    },
+    {
+      title: "Из какого гнезда цыплята?",
+      url: "https://learningapps.org/watch?v=pfjr2xwj326"
+    },
+    {
+      title: "Что сначала, что потом",
+      url: "https://learningapps.org/watch?v=pst3dwo5526"
+    },
+    {
+      title: "Продолжи ряд...",
+      url: "https://learningapps.org/watch?v=pzu7quynj26"
+    },
+    {
+      title: "Что лишнее?",
+      url: "https://learningapps.org/watch?v=p6ri82g6a26"
+    }
   ],
   figury: [
     {
@@ -128,7 +149,7 @@ const GAMES = {
   ]
 };
 
-let TOTAL_GAMES = 31;
+let TOTAL_GAMES = 34;
 const STORAGE_COMPLETED_KEY = 'matematika_completed_games_v1';
 const STORAGE_NAME_KEY      = 'matematika_child_name_v1';
 
